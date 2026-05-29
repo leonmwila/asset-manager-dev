@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Commented out - group_asset_technician does not exist
+    <record id="rule_stock_picking_technician_own" model="ir.rule">
+        <field name="name">Technician: Own Pickings Only</field>
+        <field name="model_id" ref="stock.model_stock_picking"/>
+        <field name="groups" eval="[(4, ref('group_asset_technician'))]"/>
+        <field name="domain_force">[('create_uid','=',user.id)]</field>
+    </record>
+    -->
+</odoo>

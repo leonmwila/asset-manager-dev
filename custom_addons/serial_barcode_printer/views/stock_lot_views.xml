@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Add Print Labels button to Lot/Serial form view -->
+    <record id="view_stock_lot_form_inherit_barcode" model="ir.ui.view">
+        <field name="name">stock.lot.form.inherit.barcode</field>
+        <field name="model">stock.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_form"/>
+        <field name="arch" type="xml">
+            <!-- Add Print Labels button at the top of the form -->
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <button name="action_open_label_layout" 
+                            string="Print Labels" 
+                            type="object"
+                            class="oe_highlight"/>
+                </header>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Enable multi-edit on list view -->
+    <record id="view_stock_lot_list_inherit_barcode" model="ir.ui.view">
+        <field name="name">stock.lot.list.inherit.barcode</field>
+        <field name="model">stock.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list" position="attributes">
+                <attribute name="multi_edit">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Add action for printing labels from list view -->
+    <record id="action_lot_print_labels" model="ir.actions.server">
+        <field name="name">Print Labels</field>
+        <field name="model_id" ref="stock.model_stock_lot"/>
+        <field name="binding_model_id" ref="stock.model_stock_lot"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+if records:
+    action = records.action_open_label_layout()
+        </field>
+    </record>
+</odoo>

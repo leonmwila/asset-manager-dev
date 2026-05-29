@@ -1,0 +1,516 @@
+<odoo>
+    <!-- Sample Provinces -->
+    <record id="province_lusaka" model="res.province">
+        <field name="name">Lusaka</field>
+    </record>
+    <record id="province_copperbelt" model="res.province">
+        <field name="name">Copperbelt</field>
+    </record>
+    <record id="province_central" model="res.province">
+        <field name="name">Central</field>
+    </record>
+    <record id="province_eastern" model="res.province">
+        <field name="name">Eastern</field>
+    </record>
+    <record id="province_luapula" model="res.province">
+        <field name="name">Luapula</field>
+    </record>
+    <record id="province_muchinga" model="res.province">
+        <field name="name">Muchinga</field>
+    </record>
+    <record id="province_northern" model="res.province">
+        <field name="name">Northern</field>
+    </record>
+    <record id="province_north_western" model="res.province">
+        <field name="name">North-Western</field>
+    </record>
+    <record id="province_southern" model="res.province">
+        <field name="name">Southern</field>
+    </record>
+    <record id="province_western" model="res.province">
+        <field name="name">Western</field>
+    </record>
+    
+    <!-- Lusaka Districts -->
+    <record id="district_lusaka" model="res.district">
+        <field name="name">Lusaka</field>
+        <field name="province_id" ref="province_lusaka"/>
+    </record>
+    <record id="district_chilanga" model="res.district">
+        <field name="name">Chilanga</field>
+        <field name="province_id" ref="province_lusaka"/>
+    </record>
+    <record id="district_chongwe" model="res.district">
+        <field name="name">Chongwe</field>
+        <field name="province_id" ref="province_lusaka"/>
+    </record>
+    <record id="district_kafue" model="res.district">
+        <field name="name">Kafue</field>
+        <field name="province_id" ref="province_lusaka"/>
+    </record>
+    <record id="district_luangwa" model="res.district">
+        <field name="name">Luangwa</field>
+        <field name="province_id" ref="province_lusaka"/>
+    </record>
+    <record id="district_rufunsa" model="res.district">
+        <field name="name">Rufunsa</field>
+        <field name="province_id" ref="province_lusaka"/>
+    </record>
+
+    <!-- Copperbelt Districts -->
+    <record id="district_chililabombwe" model="res.district">
+        <field name="name">Chililabombwe</field>
+        <field name="province_id" ref="province_copperbelt"/>
+    </record>
+    <record id="district_chingola" model="res.district">
+        <field name="name">Chingola</field>
+        <field name="province_id" ref="province_copperbelt"/>
+    </record>
+    <record id="district_kalulushi" model="res.district">
+        <field name="name">Kalulushi</field>
+        <field name="province_id" ref="province_copperbelt"/>
+    </record>
+    <record id="district_kitwe" model="res.district">
+        <field name="name">Kitwe</field>
+        <field name="province_id" ref="province_copperbelt"/>
+    </record>
+    <record id="district_luanshya" model="res.district">
+        <field name="name">Luanshya</field>
+        <field name="province_id" ref="province_copperbelt"/>
+    </record>
+    <record id="district_lufwanyama" model="res.district">
+        <field name="name">Lufwanyama</field>
+        <field name="province_id" ref="province_copperbelt"/>
+    </record>
+    <record id="district_masaiti" model="res.district">
+        <field name="name">Masaiti</field>
+        <field name="province_id" ref="province_copperbelt"/>
+    </record>
+    <record id="district_mpongwe" model="res.district">
+        <field name="name">Mpongwe</field>
+        <field name="province_id" ref="province_copperbelt"/>
+    </record>
+    <record id="district_mufulira" model="res.district">
+        <field name="name">Mufulira</field>
+        <field name="province_id" ref="province_copperbelt"/>
+    </record>
+    <record id="district_ndola" model="res.district">
+        <field name="name">Ndola</field>
+        <field name="province_id" ref="province_copperbelt"/>
+    </record>
+    <!-- Central Districts -->
+    <record id="district_chibombo" model="res.district">
+        <field name="name">Chibombo</field>
+        <field name="province_id" ref="province_central"/>
+    </record>
+    <record id="district_chisamba" model="res.district">
+        <field name="name">Chisamba</field>
+        <field name="province_id" ref="province_central"/>
+    </record>
+    <record id="district_chitambo" model="res.district">
+        <field name="name">Chitambo</field>
+        <field name="province_id" ref="province_central"/>
+    </record>
+    <record id="district_kabwe" model="res.district">
+        <field name="name">Kabwe</field>
+        <field name="province_id" ref="province_central"/>
+    </record>
+    <record id="district_kapiri_mposhi" model="res.district">
+        <field name="name">Kapiri Mposhi</field>
+        <field name="province_id" ref="province_central"/>
+    </record>
+    <record id="district_luano" model="res.district">
+        <field name="name">Luano</field>
+        <field name="province_id" ref="province_central"/>
+    </record>
+    <record id="district_mkushi" model="res.district">
+        <field name="name">Mkushi</field>
+        <field name="province_id" ref="province_central"/>
+    </record>
+    <record id="district_mumbwa" model="res.district">
+        <field name="name">Mumbwa</field>
+        <field name="province_id" ref="province_central"/>
+    </record>
+    <record id="district_ngabwe" model="res.district">
+        <field name="name">Ngabwe</field>
+        <field name="province_id" ref="province_central"/>
+    </record>
+    <record id="district_serenje" model="res.district">
+        <field name="name">Serenje</field>
+        <field name="province_id" ref="province_central"/>
+    </record>
+    <record id="district_shibuyunji" model="res.district">
+        <field name="name">Shibuyunji</field>
+        <field name="province_id" ref="province_central"/>
+    </record>
+    <!-- Eastern Districts -->
+    <record id="district_chadiza" model="res.district">
+        <field name="name">Chadiza</field>
+        <field name="province_id" ref="province_eastern"/>
+    </record>
+    <record id="district_chama" model="res.district">
+        <field name="name">Chama</field>
+        <field name="province_id" ref="province_eastern"/>
+    </record>
+    <record id="district_chasefu" model="res.district">
+        <field name="name">Chasefu</field>
+        <field name="province_id" ref="province_eastern"/>
+    </record>
+    <record id="district_chipangali" model="res.district">
+        <field name="name">Chipangali</field>
+        <field name="province_id" ref="province_eastern"/>
+    </record>
+    <record id="district_chipata" model="res.district">
+        <field name="name">Chipata</field>
+        <field name="province_id" ref="province_eastern"/>
+    </record>
+    <record id="district_kasenengwa" model="res.district">
+        <field name="name">Kasenengwa</field>
+        <field name="province_id" ref="province_eastern"/>
+    </record>
+    <record id="district_katete" model="res.district">
+        <field name="name">Katete</field>
+        <field name="province_id" ref="province_eastern"/>
+    </record>
+    <record id="district_lumezi" model="res.district">
+        <field name="name">Lumezi</field>
+        <field name="province_id" ref="province_eastern"/>
+    </record>
+    <record id="district_lundazi" model="res.district">
+        <field name="name">Lundazi</field>
+        <field name="province_id" ref="province_eastern"/>
+    </record>
+    <record id="district_lusangazi" model="res.district">
+        <field name="name">Lusangazi</field>
+        <field name="province_id" ref="province_eastern"/>
+    </record>
+    <record id="district_mambwe" model="res.district">
+        <field name="name">Mambwe</field>
+        <field name="province_id" ref="province_eastern"/>
+    </record>
+    <record id="district_nyimba" model="res.district">
+        <field name="name">Nyimba</field>
+        <field name="province_id" ref="province_eastern"/>
+    </record>
+    <record id="district_petauke" model="res.district">
+        <field name="name">Petauke</field>
+        <field name="province_id" ref="province_eastern"/>
+    </record>
+    <record id="district_sinda" model="res.district">
+        <field name="name">Sinda</field>
+        <field name="province_id" ref="province_eastern"/>
+    </record>
+    <record id="district_vubwi" model="res.district">
+        <field name="name">Vubwi</field>
+        <field name="province_id" ref="province_eastern"/>
+    </record>
+
+    <!-- Luapula Districts -->  
+    <record id="district_chembe" model="res.district">
+        <field name="name">Chembe</field>
+        <field name="province_id" ref="province_luapula"/>
+    </record>
+    <record id="district_chiengi" model="res.district">
+        <field name="name">Chiengi</field>
+        <field name="province_id" ref="province_luapula"/>
+    </record>
+    <record id="district_chifunabuli" model="res.district">
+        <field name="name">Chifunabuli</field>
+        <field name="province_id" ref="province_luapula"/>
+    </record>
+    <record id="district_chipili" model="res.district">
+        <field name="name">Chipili</field>
+        <field name="province_id" ref="province_luapula"/>
+    </record>
+    <record id="district_kawambwa" model="res.district">
+        <field name="name">Kawambwa</field>
+        <field name="province_id" ref="province_luapula"/>
+    </record>
+    <record id="district_lunga" model="res.district">
+        <field name="name">Lunga</field>
+        <field name="province_id" ref="province_luapula"/>
+    </record>
+    <record id="district_mansa" model="res.district">
+        <field name="name">Mansa</field>
+        <field name="province_id" ref="province_luapula"/>
+    </record>
+    <record id="district_milenge" model="res.district">
+        <field name="name">Milenge</field>
+        <field name="province_id" ref="province_luapula"/>
+    </record>
+    <record id="district_mwansabombwe" model="res.district">
+        <field name="name">Mwansabombwe</field>
+        <field name="province_id" ref="province_luapula"/>
+    </record>
+    <record id="district_mwense" model="res.district">
+        <field name="name">Mwense</field>
+        <field name="province_id" ref="province_luapula"/>
+    </record>
+    <record id="district_nchelenge" model="res.district">
+        <field name="name">Nchelenge</field>
+        <field name="province_id" ref="province_luapula"/>
+    </record>
+    <record id="district_samfya" model="res.district">
+        <field name="name">Samfya</field>
+        <field name="province_id" ref="province_luapula"/>
+    </record>
+    
+    <!-- Muchinga Districts -->
+    <record id="district_chinsali" model="res.district">
+        <field name="name">Chinsali</field>
+        <field name="province_id" ref="province_muchinga"/>
+    </record>
+    <record id="district_isoka" model="res.district">
+        <field name="name">Isoka</field>
+        <field name="province_id" ref="province_muchinga"/>
+    </record>
+    <record id="district_kanchibiya" model="res.district">
+        <field name="name">Kanchibiya</field>
+        <field name="province_id" ref="province_muchinga"/>
+    </record>
+    <record id="district_lavushimanda" model="res.district">
+        <field name="name">Lavushimanda</field>
+        <field name="province_id" ref="province_muchinga"/>
+    </record>
+    <record id="district_mafinga" model="res.district">
+        <field name="name">Mafinga</field>
+        <field name="province_id" ref="province_muchinga"/>
+    </record>
+    <record id="district_mpika" model="res.district">
+        <field name="name">Mpika</field>
+        <field name="province_id" ref="province_muchinga"/>
+    </record>
+    <record id="district_nakonde" model="res.district">
+        <field name="name">Nakonde</field>
+        <field name="province_id" ref="province_muchinga"/>
+    </record>
+    <record id="district_shiwangandu" model="res.district">
+        <field name="name">Shiwang’andu</field>
+        <field name="province_id" ref="province_muchinga"/>
+    </record>
+
+    <!-- Northern Districts -->
+    <record id="district_chilubi" model="res.district">
+        <field name="name">Chilubi</field>
+        <field name="province_id" ref="province_northern"/>
+    </record>
+    <record id="district_kaputa" model="res.district">
+        <field name="name">Kaputa</field>
+        <field name="province_id" ref="province_northern"/>
+    </record>
+    <record id="district_kasama" model="res.district">
+        <field name="name">Kasama</field>
+        <field name="province_id" ref="province_northern"/>
+    </record>
+    <record id="district_lunte" model="res.district">
+        <field name="name">Lunte</field>
+        <field name="province_id" ref="province_northern"/>
+    </record>
+    <record id="district_lupososhi" model="res.district">
+        <field name="name">Lupososhi</field>
+        <field name="province_id" ref="province_northern"/>
+    </record>
+    <record id="district_luwingu" model="res.district">
+        <field name="name">Luwingu</field>
+        <field name="province_id" ref="province_northern"/>
+    </record>
+    <record id="district_mbala" model="res.district">
+        <field name="name">Mbala</field>
+        <field name="province_id" ref="province_northern"/>
+    </record>
+    <record id="district_mporokoso" model="res.district">
+        <field name="name">Mporokoso</field>
+        <field name="province_id" ref="province_northern"/>
+    </record>
+    <record id="district_mpulungu" model="res.district">
+        <field name="name">Mpulungu</field>
+        <field name="province_id" ref="province_northern"/>
+    </record>
+    <record id="district_mungwi" model="res.district">
+        <field name="name">Mungwi</field>
+        <field name="province_id" ref="province_northern"/>
+    </record>
+    <record id="district_nsama" model="res.district">
+        <field name="name">Nsama</field>
+        <field name="province_id" ref="province_northern"/>
+    </record>
+    <record id="district_senga" model="res.district">
+        <field name="name">Senga</field>
+        <field name="province_id" ref="province_northern"/>
+    </record>
+
+    <!-- North Western Districts -->
+    <record id="district_chavuma" model="res.district">
+        <field name="name">Chavuma</field>
+        <field name="province_id" ref="province_north_western"/>
+    </record>
+    <record id="district_ikelenge" model="res.district">
+        <field name="name">Ikelenge</field>
+        <field name="province_id" ref="province_north_western"/>
+    </record>
+    <record id="district_kabompo" model="res.district">
+        <field name="name">Kabompo</field>
+        <field name="province_id" ref="province_north_western"/>
+    </record>
+    <record id="district_kasempa" model="res.district">
+        <field name="name">Kasempa</field>
+        <field name="province_id" ref="province_north_western"/>
+    </record>
+    <record id="district_kalumbila" model="res.district">
+        <field name="name">Kalumbila</field>
+        <field name="province_id" ref="province_north_western"/>
+    </record>
+    <record id="district_manyinga" model="res.district">
+        <field name="name">Manyinga</field>
+        <field name="province_id" ref="province_north_western"/>
+    </record>
+    <record id="district_mufumbwe" model="res.district">
+        <field name="name">Mufumbwe</field>
+        <field name="province_id" ref="province_north_western"/>
+    </record>
+    <record id="district_mushindamo" model="res.district">
+        <field name="name">Mushindamo</field>
+        <field name="province_id" ref="province_north_western"/>
+    </record>
+    <record id="district_mwinilunga" model="res.district">
+        <field name="name">Mwinilunga</field>
+        <field name="province_id" ref="province_north_western"/>
+    </record>
+    <record id="district_solwezi" model="res.district">
+        <field name="name">Solwezi</field>
+        <field name="province_id" ref="province_north_western"/>
+    </record>
+    <record id="district_zambezi" model="res.district">
+        <field name="name">Zambezi</field>
+        <field name="province_id" ref="province_north_western"/>
+    </record>
+
+    <!-- Southern Districts -->
+    <record id="district_chikankata" model="res.district">
+        <field name="name">Chikankata</field>
+        <field name="province_id" ref="province_southern"/>
+    </record>
+    <record id="district_chirundu" model="res.district">
+        <field name="name">Chirundu</field>
+        <field name="province_id" ref="province_southern"/>
+    </record>
+    <record id="district_choma" model="res.district">
+        <field name="name">Choma</field>
+        <field name="province_id" ref="province_southern"/>
+    </record>
+    <record id="district_gwembe" model="res.district">
+        <field name="name">Gwembe</field>
+        <field name="province_id" ref="province_southern"/>
+    </record>
+    <record id="district_itezhi_tezhi" model="res.district">
+        <field name="name">Itezhi-Tezhi</field>
+        <field name="province_id" ref="province_southern"/>
+    </record>
+    <record id="district_kalomo" model="res.district">
+        <field name="name">Kalomo</field>
+        <field name="province_id" ref="province_southern"/>
+    </record>
+    <record id="district_kazungula" model="res.district">
+        <field name="name">Kazungula</field>
+        <field name="province_id" ref="province_southern"/>
+    </record>
+    <record id="district_livingstone" model="res.district">
+        <field name="name">Livingstone</field>
+        <field name="province_id" ref="province_southern"/>
+    </record>
+    <record id="district_mazabuka" model="res.district">
+        <field name="name">Mazabuka</field>
+        <field name="province_id" ref="province_southern"/>
+    </record>
+    <record id="district_monze" model="res.district">
+        <field name="name">Monze</field>
+        <field name="province_id" ref="province_southern"/>
+    </record>
+    <record id="district_namwala" model="res.district">
+        <field name="name">Namwala</field>
+        <field name="province_id" ref="province_southern"/>
+    </record>
+    <record id="district_pemba" model="res.district">
+        <field name="name">Pemba</field>
+        <field name="province_id" ref="province_southern"/>
+    </record>
+    <record id="district_siavonga" model="res.district">
+        <field name="name">Siavonga</field>
+        <field name="province_id" ref="province_southern"/>
+    </record>
+    <record id="district_sinazongwe" model="res.district">
+        <field name="name">Sinazongwe</field>
+        <field name="province_id" ref="province_southern"/>
+    </record>
+    <record id="district_zimba" model="res.district">
+        <field name="name">Zimba</field>
+        <field name="province_id" ref="province_southern"/>
+    </record>
+
+    <!-- Western Districts -->
+    <record id="district_kalabo" model="res.district">
+        <field name="name">Kalabo</field>
+        <field name="province_id" ref="province_western"/>
+    </record>
+    <record id="district_kaoma" model="res.district">
+        <field name="name">Kaoma</field>
+        <field name="province_id" ref="province_western"/>
+    </record>
+    <record id="district_limulunga" model="res.district">
+        <field name="name">Limulunga</field>
+        <field name="province_id" ref="province_western"/>
+    </record>
+    <record id="district_luampa" model="res.district">
+        <field name="name">Luampa</field>
+        <field name="province_id" ref="province_western"/>
+    </record>
+    <record id="district_lukulu" model="res.district">
+        <field name="name">Lukulu</field>
+        <field name="province_id" ref="province_western"/>
+    </record>
+    <record id="district_mitete" model="res.district">
+        <field name="name">Mitete</field>
+        <field name="province_id" ref="province_western"/>
+    </record>
+    <record id="district_mongu" model="res.district">
+        <field name="name">Mongu</field>
+        <field name="province_id" ref="province_western"/>
+    </record>
+    <record id="district_mulobezi" model="res.district">
+        <field name="name">Mulobezi</field>
+        <field name="province_id" ref="province_western"/>
+    </record>
+    <record id="district_mwandi" model="res.district">
+        <field name="name">Mwandi</field>
+        <field name="province_id" ref="province_western"/>
+    </record>
+    <record id="district_nalolo" model="res.district">
+        <field name="name">Nalolo</field>
+        <field name="province_id" ref="province_western"/>
+    </record>
+    <record id="district_nkeyema" model="res.district">
+        <field name="name">Nkeyema</field>
+        <field name="province_id" ref="province_western"/>
+    </record>
+    <record id="district_senanga" model="res.district">
+        <field name="name">Senanga</field>
+        <field name="province_id" ref="province_western"/>
+    </record>
+    <record id="district_sesheke" model="res.district">
+        <field name="name">Sesheke</field>
+        <field name="province_id" ref="province_western"/>
+    </record>
+    <record id="district_shangombo" model="res.district">
+        <field name="name">Shang’ombo</field>
+        <field name="province_id" ref="province_western"/>
+    </record>
+    <record id="district_sikongo" model="res.district">
+        <field name="name">Sikongo</field>
+        <field name="province_id" ref="province_western"/>
+    </record>
+    <record id="district_sioma" model="res.district">
+        <field name="name">Sioma</field>
+        <field name="province_id" ref="province_western"/>
+    </record>
+
+</odoo>

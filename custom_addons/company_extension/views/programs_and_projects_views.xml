@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Programs Form View -->
+    <record id="view_oe_program_form" model="ir.ui.view">
+        <field name="name">oe.program.form</field>
+        <field name="model">oe.program</field>
+        <field name="arch" type="xml">
+            <form string="Program">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="prog_code"/>
+                        <field name="description"/>
+                        <field name="company_id"/>
+                    </group>
+                    <group string="Projects">
+                        <field name="project_ids">
+                            <list>
+                                <field name="name"/>
+                                <field name="proj_code"/>
+                            </list>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Programs Tree View -->
+    <record id="view_oe_program_tree" model="ir.ui.view">
+        <field name="name">oe.program.tree</field>
+        <field name="model">oe.program</field>
+        <field name="arch" type="xml">
+            <list string="Programs">
+                <field name="name"/>
+                <field name="prog_code"/>
+                <field name="description"/>
+                <field name="company_id"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Projects Form View -->
+    <record id="view_oe_project_form" model="ir.ui.view">
+        <field name="name">oe.project.form</field>
+        <field name="model">oe.project</field>
+        <field name="arch" type="xml">
+            <form string="Project">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="proj_code"/>
+                        <field name="company_id"/>
+                        <field name="description"/>
+                        <field name="program_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Projects Tree View -->
+    <record id="view_oe_project_tree" model="ir.ui.view">
+        <field name="name">oe.project.tree</field>
+        <field name="model">oe.project</field>
+        <field name="arch" type="xml">
+            <list string="Projects">
+                <field name="name"/>
+                <field name="proj_code"/>
+                <field name="description"/>
+                <field name="program_id"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_oe_programs" model="ir.actions.act_window">
+        <field name="name">Programs</field>
+        <field name="res_model">oe.program</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="action_oe_projects" model="ir.actions.act_window">
+        <field name="name">Projects</field>
+        <field name="res_model">oe.project</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Root Menu -->
+    <menuitem id="menu_programs_projects_root" name="Programs &amp; Projects" sequence="10"/>
+    <!-- Programs Menu -->
+    <menuitem id="menu_programs" name="Programs" parent="menu_programs_projects_root" action="action_oe_programs" sequence="1"/>
+    <!-- Projects Menu -->
+    <menuitem id="menu_projects" name="Projects" parent="menu_programs_projects_root" action="action_oe_projects" sequence="2"/>
+
+</odoo>

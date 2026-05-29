@@ -1,0 +1,802 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* product_to_asset
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-01-27 09:00:00\n"
+"PO-Revision-Date: 2025-01-27 09:00:00\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: product
+#: model:ir.model,name:product.model_product_template
+msgid "Product"
+msgstr "Asset"
+
+#. module: product
+#: model:ir.model,name:product.model_product_template
+msgid "Products"
+msgstr "Assets"
+
+#. module: product
+msgid "Product Template"
+msgstr "Asset Template"
+
+#. module: product
+msgid "Product Templates"
+msgstr "Asset Templates"
+
+#. module: product
+msgid "Product Category"
+msgstr "Asset Category"
+
+#. module: product
+msgid "Product Categories"
+msgstr "Asset Categories"
+
+#. module: product
+msgid "Product Variant"
+msgstr "Asset Variant"
+
+#. module: product
+msgid "Product Variants"
+msgstr "Asset Variants"
+
+#. module: product
+msgid "Product Name"
+msgstr "Asset Name"
+
+#. module: product
+msgid "Product Type"
+msgstr "Asset Type"
+
+#. module: product
+msgid "Product Code"
+msgstr "Asset Code"
+
+#. module: product
+msgid "Product Description"
+msgstr "Asset Description"
+
+#. module: product
+msgid "Product Information"
+msgstr "Asset Information"
+
+#. module: product
+msgid "Product Details"
+msgstr "Asset Details"
+
+#. module: product
+msgid "Product Settings"
+msgstr "Asset Settings"
+
+#. module: product
+msgid "New Product"
+msgstr "New Asset"
+
+#. module: product
+msgid "Create Product"
+msgstr "Create Asset"
+
+#. module: product
+msgid "Edit Product"
+msgstr "Edit Asset"
+
+#. module: product
+msgid "Delete Product"
+msgstr "Delete Asset"
+
+#. module: product
+msgid "Product List"
+msgstr "Asset List"
+
+#. module: product
+msgid "Product Form"
+msgstr "Asset Form"
+
+#. module: product
+msgid "Product Tree"
+msgstr "Asset Tree"
+
+#. module: product
+msgid "Product Search"
+msgstr "Asset Search"
+
+#. module: product
+msgid "Product Filter"
+msgstr "Asset Filter"
+
+#. module: product
+msgid "Product Manager"
+msgstr "Asset Manager"
+
+#. module: product
+msgid "Product Cost"
+msgstr "Asset Cost"
+
+#. module: product
+msgid "Product Price"
+msgstr "Asset Price"
+
+#. module: product
+msgid "Product Sale Price"
+msgstr "Asset Sale Price"
+
+#. module: product
+msgid "Product Purchase Price"
+msgstr "Asset Purchase Price"
+
+#. module: product
+msgid "Product Stock"
+msgstr "Asset Stock"
+
+#. module: product
+msgid "Product Inventory"
+msgstr "Asset Inventory"
+
+#. module: product
+msgid "Product Location"
+msgstr "Asset Location"
+
+#. module: product
+msgid "Product Warehouse"
+msgstr "Asset Warehouse"
+
+#. module: product
+msgid "Product Lot"
+msgstr "Asset Lot"
+
+#. module: product
+msgid "Product Serial Number"
+msgstr "Asset Serial Number"
+
+#. module: product
+msgid "Product Barcode"
+msgstr "Asset Barcode"
+
+#. module: product
+msgid "Product Image"
+msgstr "Asset Image"
+
+#. module: product
+msgid "Product Images"
+msgstr "Asset Images"
+
+#. module: product
+msgid "Product Attributes"
+msgstr "Asset Attributes"
+
+#. module: product
+msgid "Product Attribute"
+msgstr "Asset Attribute"
+
+#. module: product
+msgid "Product Attribute Value"
+msgstr "Asset Attribute Value"
+
+#. module: product
+msgid "Product Attribute Values"
+msgstr "Asset Attribute Values"
+
+#. module: product
+msgid "Product UOM"
+msgstr "Asset UOM"
+
+#. module: product
+msgid "Product Unit of Measure"
+msgstr "Asset Unit of Measure"
+
+#. module: product
+msgid "Product Weight"
+msgstr "Asset Weight"
+
+#. module: product
+msgid "Product Volume"
+msgstr "Asset Volume"
+
+#. module: product
+msgid "Product Dimensions"
+msgstr "Asset Dimensions"
+
+#. module: product
+msgid "Product Supplier"
+msgstr "Asset Supplier"
+
+#. module: product
+msgid "Product Suppliers"
+msgstr "Asset Suppliers"
+
+#. module: product
+msgid "Product Vendor"
+msgstr "Asset Vendor"
+
+#. module: product
+msgid "Product Vendors"
+msgstr "Asset Vendors"
+
+#. module: product
+msgid "Product Customer"
+msgstr "Asset Customer"
+
+#. module: product
+msgid "Product Customers"
+msgstr "Asset Customers"
+
+#. module: product
+msgid "Product Route"
+msgstr "Asset Route"
+
+#. module: product
+msgid "Product Routes"
+msgstr "Asset Routes"
+
+#. module: product
+msgid "Product Pricelist"
+msgstr "Asset Pricelist"
+
+#. module: product
+msgid "Product Pricelists"
+msgstr "Asset Pricelists"
+
+#. module: product
+msgid "Product Tag"
+msgstr "Asset Tag"
+
+#. module: product
+msgid "Product Tags"
+msgstr "Asset Tags"
+
+#. module: product
+msgid "Product Brand"
+msgstr "Asset Brand"
+
+#. module: product
+msgid "Product Brands"
+msgstr "Asset Brands"
+
+#. module: product
+msgid "Product Model"
+msgstr "Asset Model"
+
+#. module: product
+msgid "Product Models"
+msgstr "Asset Models"
+
+#. module: product
+msgid "Product Family"
+msgstr "Asset Family"
+
+#. module: product
+msgid "Product Families"
+msgstr "Asset Families"
+
+#. module: product
+msgid "Product Line"
+msgstr "Asset Line"
+
+#. module: product
+msgid "Product Lines"
+msgstr "Asset Lines"
+
+#. module: product
+msgid "Product Item"
+msgstr "Asset Item"
+
+#. module: product
+msgid "Product Items"
+msgstr "Asset Items"
+
+#. module: product
+msgid "Product Selection"
+msgstr "Asset Selection"
+
+#. module: product
+msgid "Product Selection Mode"
+msgstr "Asset Selection Mode"
+
+#. module: product
+msgid "Product Reference"
+msgstr "Asset Reference"
+
+#. module: product
+msgid "Product Internal Reference"
+msgstr "Asset Internal Reference"
+
+#. module: product
+msgid "Product Default Code"
+msgstr "Asset Default Code"
+
+#. module: product
+msgid "Product Barcode Type"
+msgstr "Asset Barcode Type"
+
+#. module: product
+msgid "Product Packaging"
+msgstr "Asset Packaging"
+
+#. module: product
+msgid "Product Packagings"
+msgstr "Asset Packagings"
+
+#. module: product
+msgid "Product Packaging Type"
+msgstr "Asset Packaging Type"
+
+#. module: product
+msgid "Product Packaging Types"
+msgstr "Asset Packaging Types"
+
+#. module: product
+msgid "Product Alternative"
+msgstr "Asset Alternative"
+
+#. module: product
+msgid "Product Alternatives"
+msgstr "Asset Alternatives"
+
+#. module: product
+msgid "Product Substitute"
+msgstr "Asset Substitute"
+
+#. module: product
+msgid "Product Substitutes"
+msgstr "Asset Substitutes"
+
+#. module: product
+msgid "Product Complement"
+msgstr "Asset Complement"
+
+#. module: product
+msgid "Product Complements"
+msgstr "Asset Complements"
+
+#. module: product
+msgid "Product Related"
+msgstr "Asset Related"
+
+#. module: product
+msgid "Product Related Products"
+msgstr "Asset Related Assets"
+
+#. module: product
+msgid "Product Accessory"
+msgstr "Asset Accessory"
+
+#. module: product
+msgid "Product Accessories"
+msgstr "Asset Accessories"
+
+#. module: product
+msgid "Product Component"
+msgstr "Asset Component"
+
+#. module: product
+msgid "Product Components"
+msgstr "Asset Components"
+
+#. module: product
+msgid "Product Kit"
+msgstr "Asset Kit"
+
+#. module: product
+msgid "Product Kits"
+msgstr "Asset Kits"
+
+#. module: product
+msgid "Product Bundle"
+msgstr "Asset Bundle"
+
+#. module: product
+msgid "Product Bundles"
+msgstr "Asset Bundles"
+
+#. module: product
+msgid "Product Service"
+msgstr "Asset Service"
+
+#. module: product
+msgid "Product Services"
+msgstr "Asset Services"
+
+#. module: product
+msgid "Product Consumable"
+msgstr "Asset Consumable"
+
+#. module: product
+msgid "Product Consumables"
+msgstr "Asset Consumables"
+
+#. module: product
+msgid "Product Storable"
+msgstr "Asset Storable"
+
+#. module: product
+msgid "Product Storables"
+msgstr "Asset Storables"
+
+#. module: product
+msgid "Product Stockable"
+msgstr "Asset Stockable"
+
+#. module: product
+msgid "Product Stockables"
+msgstr "Asset Stockables"
+
+#. module: product
+msgid "Product Movable"
+msgstr "Asset Movable"
+
+#. module: product
+msgid "Product Movables"
+msgstr "Asset Movables"
+
+#. module: product
+msgid "Product Immovable"
+msgstr "Asset Immovable"
+
+#. module: product
+msgid "Product Immovables"
+msgstr "Asset Immovables"
+
+#. module: product
+msgid "Product Depreciable"
+msgstr "Asset Depreciable"
+
+#. module: product
+msgid "Product Depreciables"
+msgstr "Asset Depreciables"
+
+#. module: product
+msgid "Product Depreciation"
+msgstr "Asset Depreciation"
+
+#. module: product
+msgid "Product Depreciations"
+msgstr "Asset Depreciations"
+
+#. module: product
+msgid "Product Depreciation Method"
+msgstr "Asset Depreciation Method"
+
+#. module: product
+msgid "Product Depreciation Methods"
+msgstr "Asset Depreciation Methods"
+
+#. module: product
+msgid "Product Useful Life"
+msgstr "Asset Useful Life"
+
+#. module: product
+msgid "Product Fair Value"
+msgstr "Asset Fair Value"
+
+#. module: product
+msgid "Product Disposal Date"
+msgstr "Asset Disposal Date"
+
+#. module: product
+msgid "Product Disposal Price"
+msgstr "Asset Disposal Price"
+
+#. module: product
+msgid "Product Net Book Value"
+msgstr "Asset Net Book Value"
+
+#. module: product
+msgid "Product NBV"
+msgstr "Asset NBV"
+
+#. module: product
+msgid "Product Serial Status"
+msgstr "Asset Serial Status"
+
+#. module: product
+msgid "Product Serial Statuses"
+msgstr "Asset Serial Statuses"
+
+#. module: product
+msgid "Product Category Serial Status"
+msgstr "Asset Category Serial Status"
+
+#. module: product
+msgid "Product Category Serial Statuses"
+msgstr "Asset Category Serial Statuses"
+
+#. module: product
+msgid "Product Status"
+msgstr "Asset Status"
+
+#. module: product
+msgid "Product Statuses"
+msgstr "Asset Statuses"
+
+#. module: product
+msgid "Product State"
+msgstr "Asset State"
+
+#. module: product
+msgid "Product States"
+msgstr "Asset States"
+
+#. module: product
+msgid "Product Active"
+msgstr "Asset Active"
+
+#. module: product
+msgid "Product Inactive"
+msgstr "Asset Inactive"
+
+#. module: product
+msgid "Product Archived"
+msgstr "Asset Archived"
+
+#. module: product
+msgid "Product Published"
+msgstr "Asset Published"
+
+#. module: product
+msgid "Product Unpublished"
+msgstr "Asset Unpublished"
+
+#. module: product
+msgid "Product Available"
+msgstr "Asset Available"
+
+#. module: product
+msgid "Product Unavailable"
+msgstr "Asset Unavailable"
+
+#. module: product
+msgid "Product In Stock"
+msgstr "Asset In Stock"
+
+#. module: product
+msgid "Product Out of Stock"
+msgstr "Asset Out of Stock"
+
+#. module: product
+msgid "Product Low Stock"
+msgstr "Asset Low Stock"
+
+#. module: product
+msgid "Product Reorder Point"
+msgstr "Asset Reorder Point"
+
+#. module: product
+msgid "Product Reorder Level"
+msgstr "Asset Reorder Level"
+
+#. module: product
+msgid "Product Maximum Stock"
+msgstr "Asset Maximum Stock"
+
+#. module: product
+msgid "Product Minimum Stock"
+msgstr "Asset Minimum Stock"
+
+#. module: product
+msgid "Product Safety Stock"
+msgstr "Asset Safety Stock"
+
+#. module: product
+msgid "Product Forecasted Stock"
+msgstr "Asset Forecasted Stock"
+
+#. module: product
+msgid "Product Reserved Stock"
+msgstr "Asset Reserved Stock"
+
+#. module: product
+msgid "Product Available Stock"
+msgstr "Asset Available Stock"
+
+#. module: product
+msgid "Product On Hand Stock"
+msgstr "Asset On Hand Stock"
+
+#. module: product
+msgid "Product Incoming Stock"
+msgstr "Asset Incoming Stock"
+
+#. module: product
+msgid "Product Outgoing Stock"
+msgstr "Asset Outgoing Stock"
+
+#. module: product
+msgid "Product Virtual Stock"
+msgstr "Asset Virtual Stock"
+
+#. module: product
+msgid "Product Real Stock"
+msgstr "Asset Real Stock"
+
+#. module: product
+msgid "Product Quantity"
+msgstr "Asset Quantity"
+
+#. module: product
+msgid "Product Quantities"
+msgstr "Asset Quantities"
+
+#. module: product
+msgid "Product Qty"
+msgstr "Asset Qty"
+
+#. module: product
+msgid "Product Quantity Available"
+msgstr "Asset Quantity Available"
+
+#. module: product
+msgid "Product Quantity On Hand"
+msgstr "Asset Quantity On Hand"
+
+#. module: product
+msgid "Product Quantity Reserved"
+msgstr "Asset Quantity Reserved"
+
+#. module: product
+msgid "Product Quantity Incoming"
+msgstr "Asset Quantity Incoming"
+
+#. module: product
+msgid "Product Quantity Outgoing"
+msgstr "Asset Quantity Outgoing"
+
+#. module: product
+msgid "Product Quantity Virtual"
+msgstr "Asset Quantity Virtual"
+
+#. module: product
+msgid "Product Quantity Forecasted"
+msgstr "Asset Quantity Forecasted"
+
+#. module: product
+msgid "Product Quantity Safety"
+msgstr "Asset Quantity Safety"
+
+#. module: product
+msgid "Product Quantity Minimum"
+msgstr "Asset Quantity Minimum"
+
+#. module: product
+msgid "Product Quantity Maximum"
+msgstr "Asset Quantity Maximum"
+
+#. module: product
+msgid "Product Quantity Reorder"
+msgstr "Asset Quantity Reorder"
+
+#. module: product
+msgid "Product Quantity On Order"
+msgstr "Asset Quantity On Order"
+
+#. module: product
+msgid "Product Quantity Sold"
+msgstr "Asset Quantity Sold"
+
+#. module: product
+msgid "Product Quantity Purchased"
+msgstr "Asset Quantity Purchased"
+
+#. module: product
+msgid "Product Quantity Produced"
+msgstr "Asset Quantity Produced"
+
+#. module: product
+msgid "Product Quantity Consumed"
+msgstr "Asset Quantity Consumed"
+
+#. module: product
+msgid "Product Quantity Scrapped"
+msgstr "Asset Quantity Scrapped"
+
+#. module: product
+msgid "Product Quantity Returned"
+msgstr "Asset Quantity Returned"
+
+#. module: product
+msgid "Product Quantity Adjusted"
+msgstr "Asset Quantity Adjusted"
+
+#. module: product
+msgid "Product Quantity Transferred"
+msgstr "Asset Quantity Transferred"
+
+#. module: product
+msgid "Product Quantity Received"
+msgstr "Asset Quantity Received"
+
+#. module: product
+msgid "Product Quantity Delivered"
+msgstr "Asset Quantity Delivered"
+
+#. module: product
+msgid "Product Quantity Picked"
+msgstr "Asset Quantity Picked"
+
+#. module: product
+msgid "Product Quantity Packed"
+msgstr "Asset Quantity Packed"
+
+#. module: product
+msgid "Product Quantity Shipped"
+msgstr "Asset Quantity Shipped"
+
+#. module: product
+msgid "Product Quantity Invoiced"
+msgstr "Asset Quantity Invoiced"
+
+#. module: product
+msgid "Product Quantity Refunded"
+msgstr "Asset Quantity Refunded"
+
+#. module: product
+msgid "Product Quantity Cancelled"
+msgstr "Asset Quantity Cancelled"
+
+#. module: product
+msgid "Product Quantity Lost"
+msgstr "Asset Quantity Lost"
+
+#. module: product
+msgid "Product Quantity Found"
+msgstr "Asset Quantity Found"
+
+#. module: product
+msgid "Product Quantity Damaged"
+msgstr "Asset Quantity Damaged"
+
+#. module: product
+msgid "Product Quantity Repaired"
+msgstr "Asset Quantity Repaired"
+
+#. module: product
+msgid "Product Quantity Maintenance"
+msgstr "Asset Quantity Maintenance"
+
+#. module: product
+msgid "Product Quantity Inspection"
+msgstr "Asset Quantity Inspection"
+
+#. module: product
+msgid "Product Quantity Tested"
+msgstr "Asset Quantity Tested"
+
+#. module: product
+msgid "Product Quantity Approved"
+msgstr "Asset Quantity Approved"
+
+#. module: product
+msgid "Product Quantity Rejected"
+msgstr "Asset Quantity Rejected"
+
+#. module: product
+msgid "Product Quantity Quarantined"
+msgstr "Asset Quantity Quarantined"
+
+#. module: product
+msgid "Product Quantity Released"
+msgstr "Asset Quantity Released"
+
+#. module: product
+msgid "Product Quantity Blocked"
+msgstr "Asset Quantity Blocked"
+
+#. module: product
+msgid "Product Quantity Unblocked"
+msgstr "Asset Quantity Unblocked"
+
+#. module: product
+msgid "Product Quantity Locked"
+msgstr "Asset Quantity Locked"
+
+#. module: product
+msgid "Product Quantity Unlocked"
+msgstr "Asset Quantity Unlocked"
+

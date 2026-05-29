@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Explicitly define the ir.model record for product.serial.status -->
+    <record id="model_product_serial_status" model="ir.model">
+        <field name="name">product.serial.status</field>
+        <field name="model">product.serial.status</field>
+    </record>
+</odoo>
+

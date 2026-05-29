@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Repair Fee Tree View -->
+    <record id="view_repair_fee_tree" model="ir.ui.view">
+        <field name="name">repair.fee.tree</field>
+        <field name="model">repair.fee</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="product_id" optional="show"/>
+                <field name="name" required="1"/>
+                <field name="product_uom_qty" string="Qty"/>
+                <field name="price_unit" required="1"/>
+                <field name="price_subtotal" widget="monetary"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="company_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Inherit Repair Order Form View to allow cross-company serial selection -->
+    <record id="view_repair_order_form_inherit_multicompany" model="ir.ui.view">
+        <field name="name">repair.order.form.inherit.multicompany</field>
+        <field name="model">repair.order</field>
+        <field name="priority" eval="90"/>
+        <field name="inherit_id" ref="repair.view_repair_order_form"/>
+        <field name="arch" type="xml">
+            <!-- Remove company restriction from lot_id field -->
+            <xpath expr="//field[@name='lot_id']" position="attributes">
+                <attribute name="domain">[('product_id', '=', product_id)]</attribute>
+                <attribute name="context">{'default_product_id': product_id}</attribute>
+            </xpath>
+            
+            <!-- Add Parts Approval button after Confirm button -->
+            <xpath expr="//button[@name='action_validate']" position="after">
+                <button name="action_approve_parts" 
+                        string="Approve Parts" 
+                        type="object" 
+                        class="btn-primary"
+                        invisible="state != 'confirmed' or not move_ids or parts_approved"/>
+        <button name="action_open_transfer_request_wizard"
+            string="Transfer Request"
+            type="object"
+            class="btn-secondary"
+            invisible="state not in ('confirmed', 'under_repair')"/>
+        <button name="action_approve_transfer_request"
+            string="Approve Transfer"
+            type="object"
+            class="btn-primary"
+            invisible="not has_pending_transfer_request"/>
+        <button name="action_open_return_request_wizard"
+            string="Return Request"
+            type="object"
+            class="btn-secondary"
+            invisible="state != 'transferred'"/>
+        <button name="action_approve_return_request"
+            string="Approve Return"
+            type="object"
+            class="btn-primary"
+            invisible="not has_pending_return_request"/>
+            </xpath>
+            
+            <!-- Modify Start Repair button to show only when parts are approved (if parts exist) -->
+            <xpath expr="//button[@name='action_repair_start']" position="attributes">
+                <attribute name="invisible">state != 'confirmed' and state != 'parts_approved' or (move_ids and not parts_approved)</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='action_repair_end' and contains(@invisible, 'not has_uncomplete_moves')]" position="replace"/>
+            <xpath expr="//button[@name='action_repair_end' and contains(@invisible, 'has_uncomplete_moves')]" position="replace"/>
+            <xpath expr="//header" position="inside">
+                <button name="action_open_end_repair_wizard"
+                        invisible="state not in ('under_repair', 'returned')"
+                        type="object"
+                        string="End Repair"
+                        class="oe_highlight"
+                        data-hotkey="x"
+                        confirm="For some of the parts, there is a difference between the initial demand and the actual quantity that was used. Are you sure you want to confirm ?"/>
+            </xpath>
+            
+            <!-- Add parts approval information in the header -->
+            <xpath expr="//field[@name='state']" position="before">
+                <field name="parts_approved" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//field[@name='state']" position="attributes">
+                <attribute name="statusbar_visible">draft,confirmed,parts_approved,under_repair,transferred,returned,failed,done</attribute>
+            </xpath>
+            
+            <!-- Add approval details after partner_id -->
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="parts_approved_by" readonly="1" invisible="not parts_approved"/>
+                <field name="parts_approved_date" readonly="1" invisible="not parts_approved"/>
+            </xpath>
+
+            <!-- Allow selecting source location for parts used in repair -->
+            <xpath expr="//field[@name='product_id']" position="after">
+                <field name="location_id" string="Pick From" options="{'no_create': True}" groups="stock.group_stock_multi_locations"/>
+            </xpath>
+
+            <!-- Replace single Responsible with multi-user Responsible -->
+            <xpath expr="//field[@name='user_id']" position="replace">
+                <field name="responsible_user_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
+            </xpath>
+            
+            <!-- Add Operations/Services tab after Parts tab -->
+            <xpath expr="//page[@name='parts']" position="after">
+                <page string="Operations" name="operations">
+                    <field name="fees_lines" context="{'default_repair_id': id}"/>
+                </page>
+                <page string="Payment" name="payment">
+                    <group>
+                        <group>
+                            <field name="payment_state" widget="badge" 
+                                   decoration-success="payment_state == 'paid'"
+                                   decoration-warning="payment_state == 'partial'"
+                                   decoration-danger="payment_state == 'not_paid'"/>
+                            <field name="paid_amount" widget="monetary"/>
+                            <field name="balance_amount" widget="monetary"/>
+                        </group>
+                        <group>
+                            <field name="payment_date"/>
+                            <field name="payment_method"/>
+                            <field name="payment_reference"/>
+                            <field name="received_by" readonly="1"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+            
+            <!-- Add totals at the bottom of the form -->
+            <xpath expr="//page[@name='parts']" position="after">
+                <group name="repair_totals" col="4" class="oe_subtotal_footer oe_right">
+                    <field name="currency_id" invisible="1"/>
+                    <field name="parts_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="fees_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="total_amount" widget="monetary" options="{'currency_field': 'currency_id'}" class="oe_subtotal_footer_separator"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

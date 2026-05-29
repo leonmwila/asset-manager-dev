@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_template_depreciation,product.template.depreciation,product.model_product_template,base.group_user,1,1,1,1
+access_stock_lot_depreciation,stock.lot.depreciation,stock.model_stock_lot,base.group_user,1,1,1,1
+access_product_serial_status,product.serial.status,product_depreciation.model_product_serial_status,base.group_user,1,1,1,1
+

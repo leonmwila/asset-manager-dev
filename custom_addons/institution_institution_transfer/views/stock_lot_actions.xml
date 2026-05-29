@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="action_institution_transfer_request" model="ir.actions.server">
+        <field name="name">Transfer Request</field>
+        <field name="model_id" ref="stock.model_stock_lot"/>
+        <field name="binding_model_id" ref="stock.model_stock_lot"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+action = {
+    'type': 'ir.actions.act_window',
+    'name': 'Transfer Request',
+    'res_model': 'institution.transfer.request.wizard',
+    'view_mode': 'form',
+    'target': 'new',
+    'context': {'active_ids': records.ids},
+}
+        </field>
+    </record>
+</odoo>

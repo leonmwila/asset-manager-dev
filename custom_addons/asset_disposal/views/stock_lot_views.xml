@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stock_lot_form_inherit_disposal" model="ir.ui.view">
+        <field name="name">stock.lot.form.inherit.disposal</field>
+        <field name="model">stock.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_open_disposals" type="object" class="oe_stat_button" icon="fa-trash">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="disposal_count" widget="statinfo" nolabel="1"/>
+                        </span>
+                        <span class="o_stat_text">Disposals</span>
+                    </div>
+                </button>
+            </xpath>
+            <xpath expr="//field[@name='company_id']" position="after">
+                <group>
+                    <field name="active"/>
+                    <field name="asset_state"/>
+                    <field name="disposal_method" readonly="1"/>
+                    <field name="disposal_date" readonly="1"/>
+                    <field name="disposal_record_id" readonly="1"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

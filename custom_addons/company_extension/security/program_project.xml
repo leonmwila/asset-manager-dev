@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="rule_oe_program_company" model="ir.rule">
+        <field name="name">Program: multi-company</field>
+        <field name="model_id" ref="model_oe_program"/>
+        <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <record id="rule_oe_project_company" model="ir.rule">
+        <field name="name">Project: multi-company</field>
+        <field name="model_id" ref="model_oe_project"/>
+        <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <!-- Allow cross-company visibility for Lots/Serial Numbers -->
+    <record id="stock_lot_comp_rule" model="ir.rule">
+        <field name="name">Lot/Serial: Allow all companies</field>
+        <field name="model_id" ref="stock.model_stock_lot"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+</odoo>

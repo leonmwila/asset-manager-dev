@@ -1,0 +1,91 @@
+/* Custom theme - Zambian flag green and orange */
+
+// Zambian flag colors
+$zambian-green: #198A00;
+$zambian-orange: #DE6B2D;
+
+// Override Odoo's primary color CSS variables
+:root {
+    --o-brand-odoo: #{$zambian-green} !important;
+    --o-brand-primary: #{$zambian-green} !important;
+    --o-navbar-bg-color: #{$zambian-green} !important;
+}
+
+// Top navigation bar - force green background
+.o_main_navbar,
+.o-main-navbar,
+.o_navbar,
+nav.o_main_navbar {
+    background-color: $zambian-green !important;
+    
+    // All navbar items
+    .o_menu_brand,
+    .o_navbar_apps_menu,
+    .o-navbar-apps-menu,
+    .o_menu_sections,
+    .o_menu_systray {
+        background-color: $zambian-green !important;
+    }
+    
+    // Navbar menu items - white text on green, orange background on hover
+    a, button, .dropdown-toggle {
+        color: white !important;
+        
+        &:hover, &:focus {
+            background-color: $zambian-orange !important;
+            color: white !important;
+        }
+    }
+    
+    // Active menu items
+    .o-dropdown.show > .dropdown-toggle,
+    .o_menu_sections .dropdown.show > a {
+        background-color: $zambian-orange !important;
+        color: white !important;
+    }
+}
+
+// App switcher menu
+.o_navbar_apps_menu,
+.o-navbar-apps-menu {
+    background-color: $zambian-green !important;
+    
+    button {
+        &:hover {
+            background-color: $zambian-orange !important;
+        }
+    }
+}
+
+// Dropdown menus from navbar
+.o_main_navbar .dropdown-menu {
+    a.dropdown-item {
+        &:hover, &:focus {
+            background-color: lighten($zambian-green, 45%) !important;
+            color: $zambian-green !important;
+        }
+    }
+}
+
+// Primary buttons throughout the application
+.btn-primary,
+.o_button_primary {
+    background-color: $zambian-green !important;
+    border-color: $zambian-green !important;
+    color: white !important;
+    
+    &:hover, &:focus, &:active {
+        background-color: $zambian-orange !important;
+        border-color: $zambian-orange !important;
+        color: white !important;
+    }
+}
+
+// Links
+a {
+    color: $zambian-green;
+    
+    &:hover {
+        color: $zambian-orange;
+    }
+}

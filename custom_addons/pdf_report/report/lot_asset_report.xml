@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="action_report_lot_asset_pdf" model="ir.actions.report">
+        <field name="name">Print PDF Report</field>
+        <field name="model">stock.lot</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pdf_report.report_lot_asset_document</field>
+        <field name="report_file">pdf_report.report_lot_asset_document</field>
+        <field name="binding_model_id" ref="stock.model_stock_lot"/>
+        <field name="binding_type">report</field>
+        <field name="print_report_name">'Asset Report - %s' % (object.company_id.name or '')</field>
+    </record>
+
+    <template id="external_layout_no_watermark">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+        <t t-if="not company">
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+
+        <div t-attf-class="header o_company_#{company.id}_layout">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <img t-if="company.logo" class="o_company_logo_small" t-att-src="image_data_uri(company.logo)" alt="Logo"/>
+                <div t-if="company.report_header" t-field="company.report_header" class="o_company_tagline mw-50 fw-bold">Company tagline</div>
+            </div>
+            <div class="row">
+                <div class="col-6" name="company_address">
+                    <ul class="list-unstyled" name="company_address_list">
+                        <li t-if="company.is_company_details_empty"><span t-field="company.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'>
+                            <div class="bg-light border-1 rounded h-100 d-flex flex-column align-items-center justify-content-center p-4 w-100 opacity-75 text-muted text-center">
+                                <strong>Company address block</strong>
+                                <div>Contains the company address.</div>
+                            </div>
+                        </span></li>
+                        <li t-else="">
+                            <span t-field="company.company_details">
+                                <div class="bg-light border-1 rounded h-100 d-flex flex-column align-items-center justify-content-center p-4 w-100 opacity-75 text-muted text-center">
+                                    <strong>Company details block</strong>
+                                    <div>Contains the company details.</div>
+                                </div>
+                            </span>
+                        </li>
+                        <li t-if="not forced_vat"/>
+                        <li t-else="">
+                            <t t-esc="company.country_id.vat_label or 'Tax ID'">Tax ID</t>:
+                            <span t-esc="forced_vat">US12345671</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div t-attf-class="article o_report_layout_standard o_table_standard o_company_#{company.id}_layout o_snail_mail position-relative"
+             t-att-data-oe-model="o and o._name"
+             t-att-data-oe-id="o and o.id"
+             t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <div t-if="company.layout_background_image" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 0;">
+                <div style="background: #fff; padding: 24px; border-radius: 8px; box-shadow: 0 0 0 1px #fff;">
+                    <img t-att-src="'data:image/png;base64,%s' % company.layout_background_image.decode('utf-8')" alt="Watermark" style="max-width: 70%; max-height: 70%; opacity: 0.18; mix-blend-mode: normal;"/>
+                </div>
+            </div>
+            <div style="position: relative; z-index: 1;">
+                <t t-call="web.address_layout"/>
+                <h2 t-out="layout_document_title"/>
+                <t t-out="0"/>
+            </div>
+        </div>
+
+        <div t-attf-class="footer o_company_#{company.id}_layout {{report_type != 'pdf' and 'mt-auto'}}">
+            <div class="o_footer_content d-flex border-top pt-2">
+                <div class="flex-grow-1 text-start me-2" t-field="company.report_footer"/>
+                <div class="text-end text-muted">
+                    <div t-if="report_type == 'pdf' and display_name_in_footer" t-out="o.name">(document name)</div>
+                    <div t-if="report_type == 'pdf'" class="text-nowrap">Page <span class="page"/> / <span class="topage"/></div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="report_lot_asset_document">
+        <t t-call="web.html_container">
+            <t t-set="company" t-value="env['res.company'].sudo().search([('name', '=', 'SMART ZAMBIA INSTITUTE')], limit=1) or env.company"/>
+            <t t-call="pdf_report.external_layout_no_watermark">
+                <t t-set="generated_on" t-value="time.strftime('%B %d, %Y / %I:%M %p')"/>
+                <t t-set="company_ids" t-value="docs.mapped('company_id')"/>
+                <t t-set="company_ids" t-value="company_ids or env.company"/>
+
+                <t t-if="docs">
+                    <t t-foreach="company_ids" t-as="institution">
+                        <t t-set="company_docs" t-value="docs.filtered(lambda d: d.company_id == institution)"/>
+                        <div class="page">
+                            <div class="text-center" style="margin-bottom: 8px;">
+                                <h3 style="margin: 0;">Smart Zambia Institute</h3>
+                                <div style="font-size: 14px; font-weight: 600;">Office Equipment and Maintenance</div>
+                                <div style="font-size: 12px;">Institution: <t t-esc="institution.name"/></div>
+                                <div t-if="institution.street" style="font-size: 12px;">
+                                    <t t-esc="institution.street"/>
+                                </div>
+                            </div>
+
+                            <table class="table table-sm" style="font-size: 11px; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 3%;">Srl</th>
+                                        <th style="width: 10%;">GRZ Number</th>
+                                        <th style="width: 14%;">Machine Type</th>
+                                        <th style="width: 16%;">Serial Number</th>
+                                        <th style="width: 12%;">Make</th>
+                                        <th style="width: 12%;">Model</th>
+                                        <th style="width: 12%;">Registration Date</th>
+                                        <th style="width: 15%;">Location</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="row_index" t-value="0"/>
+                                    <t t-foreach="company_docs" t-as="line">
+                                        <t t-set="row_index" t-value="row_index + 1"/>
+                                        <tr>
+                                            <td><t t-esc="row_index"/></td>
+                                            <td><t t-esc="line.grz_number or ''"/></td>
+                                            <td><t t-esc="line.category_2_id.name or ''"/></td>
+                                            <td><t t-esc="line.name"/></td>
+                                            <td><t t-esc="line.product_id.product_tmpl_id.make or ''"/></td>
+                                            <td><t t-esc="line.product_model or ''"/></td>
+                                            <td><t t-esc="line.create_date.strftime('%d/%m/%Y') if line.create_date else ''"/></td>
+                                            <td><t t-esc="line.district_id.name if line.district_id else ''"/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+
+                            <div style="font-size: 10px; margin-top: 8px;">
+                                Generation Date/Time: <t t-esc="generated_on"/>
+                                <span style="float: right;">Page <span class="page"/> of <span class="topage"/></span>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+                <t t-else="">
+                    <div class="page" style="font-size: 12px;">No assets selected for this report.</div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

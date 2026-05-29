@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit the main login layout -->
+    <template id="login_layout_custom" inherit_id="web.login_layout" name="Custom Login Layout">
+        <!-- Add organization name below the logo -->
+        <xpath expr="//div[@class='text-center pb-3 border-bottom mb-4']" position="after">
+            <div class="text-center mb-3">
+                <h2 style="color: #198A00; font-weight: bold; font-size: 24px; margin: 0;">
+                    SMART ZAMBIA INSTITUTE
+                </h2>
+                <h6 style="color: #198A00; font-weight: bold; font-size: 14px; margin: 0;">
+                    Asset Management System
+                </h6>
+            </div>
+        </xpath>
+    </template>
+</odoo>

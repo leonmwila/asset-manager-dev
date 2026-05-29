@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_res_province_user,res.province user,model_res_province,base.group_user,1,1,1,1
+access_res_district_user,res.district user,model_res_district,base.group_user,1,1,1,1
+access_res_serial_range,res.serial.range user,model_res_serial_range,base.group_user,1,1,1,1
+access_oe_program_user,oe.program user,model_oe_program,base.group_user,1,1,1,1
+access_oe_project_user,oe.project user,model_oe_project,base.group_user,1,1,1,1
+access_product_category_2_user,product.category.2 user,model_product_category_2,base.group_user,1,1,1,1
+access_grz_available_number_user,grz.available.number user,model_grz_available_number,base.group_user,1,1,1,1
+access_repair_fee_user,repair.fee user,model_repair_fee,base.group_user,1,1,1,1
+access_repair_transfer_request_user,repair.transfer.request user,model_repair_transfer_request,base.group_user,1,1,1,1
+access_repair_return_request_user,repair.return.request user,model_repair_return_request,base.group_user,1,1,1,1
+access_repair_transfer_request_wizard_user,repair.transfer.request.wizard user,model_repair_transfer_request_wizard,base.group_user,1,1,1,1
+access_repair_return_request_wizard_user,repair.return.request.wizard user,model_repair_return_request_wizard,base.group_user,1,1,1,1
+access_repair_end_wizard_user,repair.end.wizard user,model_repair_end_wizard,base.group_user,1,1,1,1
+access_repair_spare_part_request_user,repair.spare.part.request user,model_repair_spare_part_request,base.group_user,1,1,1,1
+access_repair_spare_part_request_line_user,repair.spare.part.request.line user,model_repair_spare_part_request_line,base.group_user,1,1,1,1

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stock_lot_tree_inherit_labelled" model="ir.ui.view">
+        <field name="name">stock.lot.list.inherit.labelled</field>
+        <field name="model">stock.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="labelled"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_label_items" model="ir.actions.server">
+        <field name="name">Label Items</field>
+        <field name="model_id" ref="stock.model_stock_lot"/>
+        <field name="binding_model_id" ref="stock.model_stock_lot"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_label_items()</field>
+    </record>
+
+    <record id="action_remove_label_items" model="ir.actions.server">
+        <field name="name">Remove Label</field>
+        <field name="model_id" ref="stock.model_stock_lot"/>
+        <field name="binding_model_id" ref="stock.model_stock_lot"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_remove_label_items()</field>
+    </record>
+</odoo>

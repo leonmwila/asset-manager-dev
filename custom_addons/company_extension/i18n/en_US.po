@@ -1,0 +1,116 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* company_extension
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-22 09:00:00\n"
+"PO-Revision-Date: 2025-11-22 09:00:00\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: base
+#: model:ir.model.fields,field_description:base.field_res_company__name
+msgid "Company"
+msgstr "Ministry"
+
+#. module: base
+msgid "Companies"
+msgstr "Ministries"
+
+#. module: base
+msgid "Allowed Companies"
+msgstr "Allowed Ministries"
+
+#. module: base
+msgid "company"
+msgstr "ministry"
+
+#. module: base
+msgid "companies"
+msgstr "ministries"
+
+#. module: base
+msgid "Company Name"
+msgstr "Ministry Name"
+
+#. module: base
+msgid "Current Company"
+msgstr "Current Ministry"
+
+#. module: base
+msgid "My Companies"
+msgstr "My Ministries"
+
+#. module: base
+msgid "Select Companies"
+msgstr "Select Ministries"
+
+#. module: base
+msgid "Switch Company"
+msgstr "Switch Ministry"
+
+#. module: base
+msgid "Multi Companies"
+msgstr "Multi Ministries"
+
+#. module: base
+msgid "Parent Company"
+msgstr "Parent Ministry"
+
+#. module: base
+msgid "Child Companies"
+msgstr "Child Ministries"
+
+#. module: base
+msgid "Related Company"
+msgstr "Related Ministry"
+
+#. module: base
+msgid "Company Details"
+msgstr "Ministry Details"
+
+#. module: base
+msgid "Company Settings"
+msgstr "Ministry Settings"
+
+#. module: base
+msgid "Company Information"
+msgstr "Ministry Information"
+
+#. module: stock
+#: model:ir.model.fields,field_description:stock.field_stock_lot__product_id
+msgid "Product"
+msgstr "Description"
+
+#. module: stock
+msgid "Product Name"
+msgstr "Description"
+
+#. module: stock
+msgid "Lot/Serial Number"
+msgstr "Serial Number"
+
+#. module: stock
+#: model:ir.model.fields,field_description:stock.field_stock_lot__name
+msgid "Lot/Serial Number"
+msgstr "Serial Number"
+
+#. module: stock
+#: model:ir.model.fields,field_description:stock.field_stock_lot__company_id
+msgid "Company"
+msgstr "Institution"
+
+#. module: stock
+#: model:ir.model.fields,field_description:stock.field_stock_lot__district_id
+msgid "District"
+msgstr "Station"
+
+#. module: stock
+msgid "Cost"
+msgstr "Acquisition Price"

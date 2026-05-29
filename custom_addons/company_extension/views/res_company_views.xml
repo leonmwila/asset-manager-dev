@@ -1,0 +1,63 @@
+<odoo>
+    <!-- List view for Serial Range -->
+    <record id="view_serial_range_list" model="ir.ui.view">
+        <field name="name">res.serial.range.list</field>
+        <field name="model">res.serial.range</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="start_serial"/>
+                <field name="end_serial"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form view for Serial Range -->
+    <record id="view_serial_range_form" model="ir.ui.view">
+        <field name="name">res.serial.range.form</field>
+        <field name="model">res.serial.range</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="start_serial"/>
+                    <field name="end_serial"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- Inherit Company Form View -->
+    <record id="view_company_form_inherit_location" model="ir.ui.view">
+        <field name="name">res.company.form.inherit.location</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='general_info']//group[1]" position="after">
+                <group string="Additional Company Info">
+                    <group>
+                        <field name="company_code" string="Company Code"/>
+                        <field name="company_type" string="Company Type"/>
+                        <field name="province" string="Province"/>
+                        <field name="district" string="District" domain="[('province_id', '=', province)]"/>
+                    </group>
+                    <group>
+                        <field name="parent_id" invisible="1"/>
+                    </group>
+                </group>
+                <!-- Show editable serial ranges only for parent companies -->
+                <group string="Serial Ranges" invisible="parent_id">
+                    <field name="serial_range_ids" widget="one2many" nolabel="1" colspan="2"/>
+                </group>
+                <!-- Show read-only parent serial ranges for child companies -->
+                <group string="Parent Company Serial Ranges" invisible="not parent_id">
+                    <field name="parent_serial_range_ids" widget="many2many" nolabel="1" colspan="2"/>
+                </group>
+                <group string="Programs">
+                    <field name="program_ids" nolabel="1" colspan="2"/>
+                </group>
+                <group string="Projects">
+                    <field name="project_ids" nolabel="1" colspan="2"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

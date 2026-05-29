@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Institution terminology override is handled via JavaScript in static/src/js/terminology_override.js -->
+</odoo>

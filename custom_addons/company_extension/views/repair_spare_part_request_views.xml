@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_repair_spare_part_request_list" model="ir.ui.view">
+        <field name="name">repair.spare.part.request.list</field>
+        <field name="model">repair.spare.part.request</field>
+        <field name="arch" type="xml">
+            <list string="Spare Part Requests">
+                <field name="name"/>
+                <field name="repair_id"/>
+                <field name="lot_id"/>
+                <field name="requested_by"/>
+                <field name="approved_by"/>
+                <field name="approved_date"/>
+                <field name="collected_by"/>
+                <field name="collected_date"/>
+                <field name="state" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_repair_spare_part_request_form" model="ir.ui.view">
+        <field name="name">repair.spare.part.request.form</field>
+        <field name="model">repair.spare.part.request</field>
+        <field name="arch" type="xml">
+            <form string="Spare Part Request">
+                <header>
+                    <button name="action_mark_collected" string="Mark Collected" type="object" class="btn-primary" invisible="state != 'approved'"/>
+                    <button name="action_cancel" string="Cancel" type="object" class="btn-secondary" invisible="state != 'approved'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="approved,collected,cancelled"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="repair_id" readonly="1"/>
+                            <field name="lot_id" readonly="1"/>
+                            <field name="product_id" readonly="1"/>
+                            <field name="company_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="requested_by" readonly="1"/>
+                            <field name="approved_by" readonly="1"/>
+                            <field name="approved_date" readonly="1"/>
+                            <field name="collected_by" readonly="1"/>
+                            <field name="collected_date" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Technician Signature">
+                        <field name="technician_signature_name" placeholder="Technician Name" readonly="state == 'collected'"/>
+                        <field name="technician_signature" widget="signature" readonly="state == 'collected'"/>
+                    </group>
+                    <group>
+                        <field name="line_ids" readonly="state != 'approved'">
+                            <list editable="bottom">
+                                <field name="product_id" readonly="1"/>
+                                <field name="qty" readonly="1"/>
+                                <field name="product_uom_id" readonly="1"/>
+                            </list>
+                        </field>
+                    </group>
+                    <group>
+                        <field name="note" placeholder="Pickup notes / remarks"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_repair_spare_part_requests" model="ir.actions.act_window">
+        <field name="name">Spare Part Requests</field>
+        <field name="res_model">repair.spare.part.request</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

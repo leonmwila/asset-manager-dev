@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_institution_transfer_tree" model="ir.ui.view">
+        <field name="name">institution.transfer.tree</field>
+        <field name="model">institution.transfer</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="lot_id"/>
+                <field name="product_id"/>
+                <field name="source_company_id"/>
+                <field name="source_location_id"/>
+                <field name="dest_company_id"/>
+                <field name="dest_location_id"/>
+                <field name="quantity"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_institution_transfer_search" model="ir.ui.view">
+        <field name="name">institution.transfer.search</field>
+        <field name="model">institution.transfer</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="lot_id"/>
+                <field name="product_id"/>
+                <field name="source_company_id"/>
+                <field name="dest_company_id"/>
+                <filter name="pending" string="Pending" domain="[('state','=','pending')]"/>
+                <filter name="approved" string="Approved" domain="[('state','=','approved')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_institution_transfer" model="ir.actions.act_window">
+        <field name="name">Transfers</field>
+        <field name="res_model">institution.transfer</field>
+        <field name="view_mode">list</field>
+        <field name="search_view_id" ref="view_institution_transfer_search"/>
+        <field name="context">{'search_default_pending': 1}</field>
+    </record>
+
+    <menuitem id="menu_institution_transfer_root" name="Institution Transfers" parent="stock.menu_stock_root" sequence="60"/>
+    <menuitem id="menu_institution_transfer" name="Transfers" parent="menu_institution_transfer_root" action="action_institution_transfer" sequence="10"/>
+
+    <record id="action_institution_transfer_approve" model="ir.actions.server">
+        <field name="name">Approve Transfers</field>
+        <field name="model_id" ref="model_institution_transfer"/>
+        <field name="binding_model_id" ref="model_institution_transfer"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">records.action_approve()</field>
+    </record>
+</odoo>

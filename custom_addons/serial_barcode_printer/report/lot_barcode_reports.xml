@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Lot/Serial Barcode Report (PDF) -->
+    <record id="report_lot_barcode" model="ir.actions.report">
+        <field name="name">Lot/Serial Barcode Labels</field>
+        <field name="model">stock.lot</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">serial_barcode_printer.report_lot_barcode_document</field>
+        <field name="report_file">serial_barcode_printer.report_lot_barcode_document</field>
+        <field name="binding_model_id" ref="stock.model_stock_lot"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Lot/Serial Barcode Report (ZPL) -->
+    <record id="report_lot_barcode_zpl" model="ir.actions.report">
+        <field name="name">Lot/Serial Barcode Labels (ZPL)</field>
+        <field name="model">stock.lot</field>
+        <field name="report_type">qweb-text</field>
+        <field name="report_name">serial_barcode_printer.report_lot_barcode_zpl_document</field>
+        <field name="report_file">serial_barcode_printer.report_lot_barcode_zpl_document</field>
+        <field name="binding_model_id" ref="stock.model_stock_lot"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

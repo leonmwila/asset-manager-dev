@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="asset_donation_rule_company" model="ir.rule">
+        <field name="name">Asset Donations: recipient company</field>
+        <field name="model_id" ref="model_asset_donation"/>
+        <field name="domain_force">[('recipient_company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+</odoo>

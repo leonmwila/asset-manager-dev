@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stock_lot_bulk_wizard_form" model="ir.ui.view">
+        <field name="name">stock.lot.bulk.wizard.form</field>
+        <field name="model">stock.lot.bulk.wizard</field>
+        <field name="arch" type="xml">
+            <form string="New Bulk Lots/Serials">
+                <sheet>
+                    <group string="Common Data">
+                        <group>
+                            <field name="product_id" required="1"/>
+                            <field name="company_id" required="1"/>
+                            <field name="lot_acquisition_price"/>
+                            <field name="acquisition_date"/>
+                            <field name="supplier_id"/>
+                        </group>
+                        <group>
+                            <field name="program_id"/>
+                            <field name="project_id"/>
+                            <field name="assigned_to"/>
+                            <field name="department_id"/>
+                        </group>
+                    </group>
+
+                    <group string="Vehicle Information" invisible="not is_vehicle">
+                        <group>
+                            <field name="vehicle_make"/>
+                            <field name="engine_no"/>
+                            <field name="plate_no"/>
+                        </group>
+                    </group>
+
+                    <group string="Dynamic Data (Per Serial)">
+                        <group>
+                            <field name="scan_serial_input" placeholder="Scan barcode then Enter to auto-add line"/>
+                        </group>
+                        <field name="line_ids" nolabel="1">
+                            <list editable="bottom" string="Serial Lines">
+                                <field name="serial_number" required="1"/>
+                                <field name="grz_number_b"/>
+                                <field name="grz_number"/>
+                            </list>
+                        </field>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_save_bulk" string="Save" type="object" class="btn-primary"/>
+                    <button string="Cancel" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_stock_lot_bulk_wizard" model="ir.actions.act_window">
+        <field name="name">New Bulk Lots/Serials</field>
+        <field name="res_model">stock.lot.bulk.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_stock_lot_bulk_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

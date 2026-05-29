@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_template_form_inherit_spares" model="ir.ui.view">
+        <field name="name">product.template.form.inherit.spares</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='group_general']/field[@name='type']" position="after">
+                <field name="part_number" string="Part Number" invisible="type != 'spares'"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_template_search_inherit_spares" model="ir.ui.view">
+        <field name="name">product.template.search.inherit.spares</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <filter name="goods" position="after">
+                <filter string="Spares" name="spares" domain="[('type', '=', 'spares')]"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="product_product_search_catalog_inherit_spares" model="ir.ui.view">
+        <field name="name">product.product.search.catalog.inherit.spares</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_view_search_catalog"/>
+        <field name="arch" type="xml">
+            <filter name="goods" position="after">
+                <filter string="Spares" name="spares" domain="[('type', '=', 'spares')]"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="product_template_form_inherit_spares_stock" model="ir.ui.view">
+        <field name="name">product.template.form.inherit.spares.stock</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="stock.view_template_property_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//label[@for='is_storable']" position="attributes">
+                <attribute name="invisible">type not in ['consu', 'spares']</attribute>
+            </xpath>
+            <xpath expr="//div[field[@name='is_storable']]" position="attributes">
+                <attribute name="invisible">type not in ['consu', 'spares']</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

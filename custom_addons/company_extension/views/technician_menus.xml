@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <menuitem id="menu_spare_part_request"
+        name="Spare Part Requests"
+        parent="stock.menu_stock_root"
+        action="action_repair_spare_part_requests"
+        sequence="5"
+        groups="stock.group_stock_user"/>
+
+
+</odoo>

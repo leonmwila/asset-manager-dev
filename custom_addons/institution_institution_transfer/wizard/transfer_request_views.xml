@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_institution_transfer_request_form" model="ir.ui.view">
+        <field name="name">institution.transfer.request.form</field>
+        <field name="model">institution.transfer.request.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Transfer Request">
+                <group>
+                    <field name="dest_company_id" string="Institution"/>
+                    <field name="dest_location_id" string="Location"/>
+                    <label for="quantity"/>
+                    <div class="o_row">
+                        <field name="quantity" readonly="not is_spares"/>
+                        <span class="o_form_label">Max</span>
+                        <field name="max_qty" readonly="1" class="oe_inline" nolabel="1"/>
+                    </div>
+                </group>
+                <footer>
+                    <button name="action_confirm" type="object" string="Confirm" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

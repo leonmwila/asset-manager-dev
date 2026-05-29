@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stock_lot_tree_inherit_add_bulk_button" model="ir.ui.view">
+        <field name="name">stock.lot.tree.inherit.add.bulk.button</field>
+        <field name="model">stock.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list" position="inside">
+                <header>
+                    <button
+                        name="%(action_stock_lot_bulk_wizard)d"
+                        string="New Bulk"
+                        type="action"
+                        display="always"
+                        class="btn-primary"
+                    />
+                </header>
+            </xpath>
+        </field>
+    </record>
+</odoo>

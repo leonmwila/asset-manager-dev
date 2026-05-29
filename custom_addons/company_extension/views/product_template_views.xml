@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit Product Template Form View to add Model field -->
+    <record id="view_product_template_form_inherit_model" model="ir.ui.view">
+        <field name="name">product.template.form.inherit.model</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <!-- Add Model field in General Information -->
+            <xpath expr="//field[@name='categ_id']" position="after">
+                <field name="model"/>
+                <field name="make"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_product_template_form_disable_categ_quick_create" model="ir.ui.view">
+        <field name="name">product.template.form.disable.categ.quick.create</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='categ_id']" position="attributes">
+                <attribute name="options">{'no_quick_create': True}</attribute>
+            </xpath>
+        </field>
+    </record>
+    
+    <!-- Rename Cost to Acquisition Price using terminology override -->
+</odoo>

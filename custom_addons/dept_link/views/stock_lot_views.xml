@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stock_lot_form_inherit_department" model="ir.ui.view">
+        <field name="name">stock.lot.form.inherit.department</field>
+        <field name="model">stock.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_id']" position="attributes">
+                <attribute name="string">Asset</attribute>
+            </xpath>
+            <xpath expr="//field[@name='company_id']" position="after">
+                <label for="department_id" string="Department"/>
+                <field name="department_id" string="Department" options="{'no_create': False}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
