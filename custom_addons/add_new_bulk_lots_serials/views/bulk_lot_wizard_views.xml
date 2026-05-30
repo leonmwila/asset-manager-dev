@@ -19,6 +19,7 @@
                             <field name="project_id"/>
                             <field name="assigned_to"/>
                             <field name="department_id"/>
+                            <field name="location_id" placeholder="Leave empty to place manually later"/>
                         </group>
                     </group>
 

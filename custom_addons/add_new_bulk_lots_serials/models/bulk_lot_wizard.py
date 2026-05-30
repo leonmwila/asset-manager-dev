@@ -35,6 +35,12 @@ class StockLotBulkWizard(models.TransientModel):
     project_id = fields.Many2one("oe.project", string="Project", domain="[('company_id', '=', company_id)]")
     assigned_to = fields.Many2one("hr.employee", string="Assigned To", domain="[('company_id', '=', company_id)]")
     department_id = fields.Many2one("hr.department", string="Department")
+    location_id = fields.Many2one(
+        "stock.location",
+        string="Stock Location",
+        domain="[('usage', '=', 'internal'), ('company_id', 'in', [company_id, False])]",
+        help="If set, each serial number will be placed at this location (qty 1) after creation. Leave empty to place them manually via Physical Inventory.",
+    )
     vehicle_make = fields.Char(string="Make")
     engine_no = fields.Char(string="Engine No")
     plate_no = fields.Char(string="Plate No")
@@ -199,6 +205,16 @@ class StockLotBulkWizard(models.TransientModel):
 
             lot = self.env["stock.lot"].create(vals)
             created_lot_ids.append(lot.id)
+
+            # Place the serial at the chosen stock location (qty 1) so it does
+            # not end up at "Location: None" after bulk creation.
+            if self.location_id:
+                self.env["stock.quant"]._update_available_quantity(
+                    self.product_id,
+                    self.location_id,
+                    1.0,
+                    lot_id=lot,
+                )
 
         return {
             "type": "ir.actions.act_window",
