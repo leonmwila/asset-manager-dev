@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stock_allocation_from_none_wizard_form" model="ir.ui.view">
+        <field name="name">stock.allocation.from.none.wizard.form</field>
+        <field name="model">stock.allocation.from.none.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Allocate Serials from None">
+                <sheet>
+                    <group>
+                        <field name="location_id"/>
+                        <field name="serial_count" readonly="1"/>
+                    </group>
+                    <group string="Selected Serials">
+                        <field name="lot_ids" nolabel="1" readonly="1">
+                            <list create="0" edit="0" delete="0">
+                                <field name="name" string="Serial"/>
+                                <field name="product_id"/>
+                                <field name="company_id"/>
+                            </list>
+                        </field>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_allocate" type="object" string="Allocate" class="btn-primary"/>
+                    <button string="Cancel" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

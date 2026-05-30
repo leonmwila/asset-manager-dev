@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="action_stock_allocation_from_none" model="ir.actions.server">
+        <field name="name">Allocate from None</field>
+        <field name="model_id" ref="stock.model_stock_lot"/>
+        <field name="binding_model_id" ref="stock.model_stock_lot"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+action = {
+    'type': 'ir.actions.act_window',
+    'name': 'Allocate from None',
+    'res_model': 'stock.allocation.from.none.wizard',
+    'view_mode': 'form',
+    'target': 'new',
+    'context': {'active_model': 'stock.lot', 'active_ids': records.ids},
+}
+        </field>
+    </record>
+</odoo>
