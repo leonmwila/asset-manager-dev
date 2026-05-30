@@ -8,7 +8,22 @@ class StockLotBulkWizard(models.TransientModel):
 
     # Common data section
     product_id = fields.Many2one("product.product", string="Asset", required=True)
-    company_id = fields.Many2one("res.company", string="Institution", required=True, default=lambda self: self.env.company)
+    company_id = fields.Many2one("res.company", string="Institution", required=True)
+
+    @api.model
+    def default_get(self, fields_list):
+        defaults = super().default_get(fields_list)
+        if 'company_id' in fields_list and not defaults.get('company_id'):
+            # Prefer the company the user has currently active in the top-right
+            # corner (first entry of allowed_company_ids) over the user's home
+            # company, so the GRZ range search always uses the correct institution.
+            allowed = self.env.context.get('allowed_company_ids')
+            if allowed:
+                defaults['company_id'] = allowed[0]
+            else:
+                defaults['company_id'] = self.env.user.company_id.id
+        return defaults
+
     lot_acquisition_price = fields.Float(string="Acquisition Price")
     acquisition_date = fields.Date(string="Acquisition Date", default=fields.Date.today)
     supplier_id = fields.Many2one(
@@ -48,6 +63,11 @@ class StockLotBulkWizard(models.TransientModel):
     def _onchange_company_id(self):
         if self.company_id:
             self.env["grz.available.number"].ensure_numbers_for_company(self.company_id)
+        # Clear any GRZ numbers already assigned to lines — they came from the
+        # previous institution's range and are invalid for the newly selected one.
+        for line in self.line_ids:
+            line.grz_number_b = False
+            line.grz_number = False
 
     def _build_grz_number(self, grz_num_record):
         """Build the full GRZ number string for a given grz.available.number record."""
