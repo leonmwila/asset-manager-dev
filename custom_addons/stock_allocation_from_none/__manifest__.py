@@ -11,7 +11,9 @@
     'depends': ['stock'],
     'data': [
         'security/ir.model.access.csv',
+        'data/stock_allocation_cron.xml',
         'views/stock_allocation_from_none_views.xml',
+        'views/stock_allocation_job_views.xml',
         'views/stock_lot_actions.xml',
     ],
     'installable': True,

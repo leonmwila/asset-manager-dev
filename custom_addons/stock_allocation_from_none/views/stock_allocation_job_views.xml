@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stock_allocation_from_none_job_tree" model="ir.ui.view">
+        <field name="name">stock.allocation.from.none.job.tree</field>
+        <field name="model">stock.allocation.from.none.job</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="create_date"/>
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="location_id"/>
+                <field name="total_count"/>
+                <field name="success_count"/>
+                <field name="failed_count"/>
+                <field name="skipped_count"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_stock_allocation_from_none_job_form" model="ir.ui.view">
+        <field name="name">stock.allocation.from.none.job.form</field>
+        <field name="model">stock.allocation.from.none.job</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="user_id" readonly="1"/>
+                            <field name="location_id" readonly="1"/>
+                            <field name="state" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="total_count" readonly="1"/>
+                            <field name="success_count" readonly="1"/>
+                            <field name="failed_count" readonly="1"/>
+                            <field name="skipped_count" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Errors" invisible="not error_log">
+                        <field name="error_log" readonly="1"/>
+                    </group>
+                    <group string="Serials">
+                        <field name="lot_ids" readonly="1">
+                            <list create="0" edit="0" delete="0">
+                                <field name="name"/>
+                                <field name="product_id"/>
+                                <field name="company_id"/>
+                            </list>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_stock_allocation_from_none_jobs" model="ir.actions.act_window">
+        <field name="name">Stock Allocation Jobs</field>
+        <field name="res_model">stock.allocation.from.none.job</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_stock_allocation_from_none_jobs_server" model="ir.actions.server">
+        <field name="name">Allocation Jobs</field>
+        <field name="model_id" ref="stock.model_stock_lot"/>
+        <field name="binding_model_id" ref="stock.model_stock_lot"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+action = {
+    'type': 'ir.actions.act_window',
+    'name': 'Stock Allocation Jobs',
+    'res_model': 'stock.allocation.from.none.job',
+    'view_mode': 'list,form',
+    'target': 'current',
+}
+        </field>
+    </record>
+</odoo>

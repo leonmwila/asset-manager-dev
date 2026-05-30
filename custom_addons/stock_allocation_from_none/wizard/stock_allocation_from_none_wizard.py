@@ -44,52 +44,21 @@ class StockAllocationFromNoneWizard(models.TransientModel):
         self.location_id.check_access_rights('read')
         self.location_id.check_access_rule('read')
 
-        already_stocked = []
-        allocated = []
+        job = self.env['stock.allocation.from.none.job'].create({
+            'name': _('Allocate %s Serials to %s') % (len(self.lot_ids), self.location_id.display_name),
+            'user_id': self.env.user.id,
+            'location_id': self.location_id.id,
+            'lot_ids': [(6, 0, self.lot_ids.ids)],
+            'total_count': len(self.lot_ids),
+        })
 
-        for lot in self.lot_ids:
-            if lot.company_id and self.location_id.company_id and lot.company_id != self.location_id.company_id:
-                raise UserError(
-                    _('Serial %s belongs to %s and cannot be allocated to %s.')
-                    % (lot.display_name, lot.company_id.display_name, self.location_id.display_name)
-                )
-
-            existing_quant = self.env['stock.quant'].search([
-                ('lot_id', '=', lot.id),
-                ('location_id.usage', '=', 'internal'),
-                ('quantity', '>', 0),
-            ], limit=1)
-            if existing_quant:
-                already_stocked.append('%s (%s)' % (lot.display_name, existing_quant.location_id.display_name))
-                continue
-
-            self.env['stock.quant']._update_available_quantity(
-                lot.product_id,
-                self.location_id,
-                1.0,
-                lot_id=lot,
-            )
-            allocated.append(lot.display_name)
-
-        if already_stocked and not allocated:
-            raise UserError(
-                _('All selected serials already have stock in an internal location: %s')
-                % ', '.join(already_stocked)
-            )
-
-        if already_stocked:
-            return {
-                'type': 'ir.actions.client',
-                'tag': 'display_notification',
-                'params': {
-                    'title': _('Partial Allocation'),
-                    'message': _('Allocated: %s. Skipped already stocked serials: %s') % (
-                        ', '.join(allocated) or '-',
-                        ', '.join(already_stocked),
-                    ),
-                    'type': 'warning',
-                    'sticky': False,
-                },
-            }
-
-        return {'type': 'ir.actions.act_window_close'}
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': _('Allocation Queued'),
+                'message': _('Job %s is running in the background. You will receive a popup when done.') % job.display_name,
+                'type': 'info',
+                'sticky': False,
+            },
+        }
