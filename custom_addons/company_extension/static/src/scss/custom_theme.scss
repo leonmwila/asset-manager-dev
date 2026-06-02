@@ -89,3 +89,12 @@ a {
         color: $zambian-orange;
     }
 }
+
+// Keep dropdown icon buttons visible on light card backgrounds (e.g. Apps kanban).
+.o_kanban_view .dropdown-toggle,
+.o_kanban_view .dropdown-toggle i,
+.o_kanban_view .dropdown-toggle span,
+.o_kanban_view .dropdown-toggle .fa,
+.o_kanban_view .dropdown-toggle .oi {
+    color: #495057 !important;
+}

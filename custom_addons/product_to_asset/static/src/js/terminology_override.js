@@ -240,7 +240,6 @@ function replaceInDOM() {
         'a.dropdown-item',
         'span.dropdown-item',
         'span[data-section]',
-        'button.dropdown-toggle span',
         '.o_import_field_name',
         '.o_import_header_name',
         'select option',

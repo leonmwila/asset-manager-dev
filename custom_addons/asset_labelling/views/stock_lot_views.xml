@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="view_stock_lot_tree_inherit_label_assets_button" model="ir.ui.view">
+        <field name="name">stock.lot.tree.inherit.label.assets.button</field>
+        <field name="model">stock.lot</field>
+        <field name="inherit_id" ref="add_new_bulk_lots_serials.view_stock_lot_tree_inherit_add_bulk_button"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list/header" position="inside">
+                <button
+                    name="%(action_stock_lot_label_wizard)d"
+                    string="Label Assets"
+                    type="action"
+                    display="always"
+                    class="btn-primary"
+                />
+            </xpath>
+        </field>
+    </record>
+
     <record id="view_stock_lot_tree_inherit_labelled" model="ir.ui.view">
         <field name="name">stock.lot.list.inherit.labelled</field>
         <field name="model">stock.lot</field>
@@ -9,23 +26,5 @@
                 <field name="labelled"/>
             </xpath>
         </field>
-    </record>
-
-    <record id="action_label_items" model="ir.actions.server">
-        <field name="name">Label Items</field>
-        <field name="model_id" ref="stock.model_stock_lot"/>
-        <field name="binding_model_id" ref="stock.model_stock_lot"/>
-        <field name="binding_view_types">list</field>
-        <field name="state">code</field>
-        <field name="code">action = records.action_label_items()</field>
-    </record>
-
-    <record id="action_remove_label_items" model="ir.actions.server">
-        <field name="name">Remove Label</field>
-        <field name="model_id" ref="stock.model_stock_lot"/>
-        <field name="binding_model_id" ref="stock.model_stock_lot"/>
-        <field name="binding_view_types">list</field>
-        <field name="state">code</field>
-        <field name="code">action = records.action_remove_label_items()</field>
     </record>
 </odoo>

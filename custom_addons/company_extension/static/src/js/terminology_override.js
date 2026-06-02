@@ -62,7 +62,6 @@ function replaceInDOM() {
         'a.dropdown-item',
         'span.dropdown-item',
         'span[data-section]',  // Target Settings menu items
-        'button.dropdown-toggle span',  // Target dropdown button spans
         '.o_import_field_name',  // Import field names
         '.o_import_header_name',  // Import header names
         'select option',  // Dropdown options

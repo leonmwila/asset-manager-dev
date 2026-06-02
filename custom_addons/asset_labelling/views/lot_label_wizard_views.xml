@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stock_lot_label_wizard_form" model="ir.ui.view">
+        <field name="name">stock.lot.label.wizard.form</field>
+        <field name="model">stock.lot.label.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Label Assets">
+                <sheet>
+                    <group string="Dynamic Data (Per Serial)">
+                        <group>
+                            <field name="scan_serial_input" placeholder="Scan barcode then Enter to auto-add line"/>
+                        </group>
+                        <field name="line_ids" nolabel="1">
+                            <list editable="bottom" string="Serial Lines">
+                                <field name="serial_number" required="1"/>
+                            </list>
+                        </field>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_label_assets" string="Label" type="object" class="btn-primary"/>
+                    <button name="action_remove_assets" string="Remove" type="object" class="btn-secondary"/>
+                    <button string="Cancel" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_stock_lot_label_wizard" model="ir.actions.act_window">
+        <field name="name">Label Assets</field>
+        <field name="res_model">stock.lot.label.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_stock_lot_label_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+</odoo>
