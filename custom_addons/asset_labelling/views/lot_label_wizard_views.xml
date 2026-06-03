@@ -6,12 +6,12 @@
         <field name="arch" type="xml">
             <form string="Label Assets">
                 <sheet>
-                    <group string="Dynamic Data (Per Serial)">
+                    <group string="Dynamic Data (Per Serial/GRZ)">
                         <group>
-                            <field name="scan_serial_input" placeholder="Scan barcode then Enter to auto-add line"/>
+                            <field name="scan_serial_input" placeholder="Scan serial or GRZ barcode then Enter to auto-add line"/>
                         </group>
                         <field name="line_ids" nolabel="1">
-                            <list editable="bottom" string="Serial Lines">
+                            <list editable="bottom" string="Serial/GRZ Lines">
                                 <field name="serial_number" required="1"/>
                             </list>
                         </field>

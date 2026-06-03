@@ -7,8 +7,8 @@ class StockLotLabelWizard(models.TransientModel):
     _description = "Lot/Serial Label Wizard"
 
     scan_serial_input = fields.Char(
-        string="Scan Serial Number",
-        help="Scan a barcode or type serial and press Enter to auto-add a line.",
+        string="Scan Serial / GRZ Number",
+        help="Scan a barcode or type a serial/GRZ and press Enter to auto-add a line.",
     )
     line_ids = fields.One2many(
         "stock.lot.label.wizard.line",
@@ -34,36 +34,58 @@ class StockLotLabelWizard(models.TransientModel):
         for line in self.line_ids:
             serial = (line.serial_number or "").strip()
             if not serial:
-                raise ValidationError(_("Each line must contain a Serial Number."))
+                raise ValidationError(_("Each line must contain a Serial/GRZ value."))
             serials.append(serial)
 
-        duplicates = sorted({s for s in serials if serials.count(s) > 1})
+        serials_lc = [s.lower() for s in serials]
+        duplicates = sorted({s for s in serials if serials_lc.count(s.lower()) > 1})
         if duplicates:
             raise ValidationError(
-                _("Duplicate serials in the input: %s") % ", ".join(duplicates)
+                _("Duplicate values in the input: %s") % ", ".join(duplicates)
             )
         return serials
 
     def _find_lots(self, serials):
-        domain = [
+        lot_model = self.env["stock.lot"].with_context(active_test=False)
+        exact_domain = [
             "|",
             "|",
             ("name", "in", serials),
             ("ref", "in", serials),
             ("grz_number", "in", serials),
         ]
-        return self.env["stock.lot"].search(domain)
+        lots = lot_model.search(exact_domain)
+        if lots:
+            return lots
+
+        # Fallback for scanners or manual input with case variance.
+        or_prefix = ["|"] * (len(serials) * 3 - 1)
+        fuzzy_terms = []
+        for value in serials:
+            fuzzy_terms.extend([
+                ("name", "ilike", value),
+                ("ref", "ilike", value),
+                ("grz_number", "ilike", value),
+            ])
+        return lot_model.search(or_prefix + fuzzy_terms)
 
     def _toggle_labelled(self, labelled):
         self.ensure_one()
         serials = self._get_serials()
         lots = self._find_lots(serials)
 
-        found_keys = set(lots.mapped("name")) | set(lots.mapped("ref")) | set(lots.mapped("grz_number"))
-        missing = sorted([serial for serial in serials if serial not in found_keys])
+        found_keys = {
+            (value or "").strip().lower()
+            for value in (lots.mapped("name") + lots.mapped("ref") + lots.mapped("grz_number"))
+            if value
+        }
+        missing = sorted([
+            serial for serial in serials
+            if serial.strip().lower() not in found_keys
+        ])
         if missing:
             raise UserError(
-                _("No asset found for serial(s): %s") % ", ".join(missing)
+                _("No asset found for value(s): %s") % ", ".join(missing)
             )
 
         lots.write({"labelled": labelled})
@@ -97,4 +119,4 @@ class StockLotLabelWizardLine(models.TransientModel):
         required=True,
         ondelete="cascade",
     )
-    serial_number = fields.Char(string="Serial Number", required=True)
+    serial_number = fields.Char(string="Serial / GRZ Number", required=True)
