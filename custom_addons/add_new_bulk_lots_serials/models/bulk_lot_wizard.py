@@ -127,6 +127,21 @@ class StockLotBulkWizard(models.TransientModel):
         if not serial:
             return
 
+        if any((line.serial_number or "").strip() == serial for line in self.line_ids):
+            self.scan_serial_input = False
+            raise ValidationError(
+                _("Serial '%s' is already added in this batch.") % serial
+            )
+
+        existing_lot = self.env["stock.lot"].with_context(active_test=False).search([
+            ("name", "=", serial),
+        ], limit=1)
+        if existing_lot:
+            self.scan_serial_input = False
+            raise ValidationError(
+                _("Serial '%s' already exists in the system.") % serial
+            )
+
         # IDs already taken by lines already in this wizard session
         taken_ids = self.line_ids.filtered("grz_number_b").mapped("grz_number_b").ids
         next_num = self._next_available_grz(exclude_ids=taken_ids)
@@ -162,13 +177,12 @@ class StockLotBulkWizard(models.TransientModel):
                 _("Duplicate serials in the input: %s") % ", ".join(duplicate_serials)
             )
 
-        existing = self.env["stock.lot"].search([
+        existing = self.env["stock.lot"].with_context(active_test=False).search([
             ("name", "in", serials),
-            ("company_id", "=", self.company_id.id),
         ])
         if existing:
             raise ValidationError(
-                _("These serial numbers already exist for this institution: %s")
+                _("These serial numbers already exist in the system: %s")
                 % ", ".join(existing.mapped("name"))
             )
 
@@ -245,6 +259,23 @@ class StockLotBulkWizardLine(models.TransientModel):
         serial = (self.serial_number or "").strip()
         if not serial or not self.wizard_id or not self.wizard_id.company_id:
             return
+
+        sibling_lines = self.wizard_id.line_ids.filtered(lambda l: l != self)
+        if any((line.serial_number or "").strip() == serial for line in sibling_lines):
+            self.serial_number = False
+            raise ValidationError(
+                _("Serial '%s' is already added in this batch.") % serial
+            )
+
+        exists = self.env["stock.lot"].with_context(active_test=False).search([
+            ("name", "=", serial),
+        ], limit=1)
+        if exists:
+            self.serial_number = False
+            raise ValidationError(
+                _("Serial '%s' already exists in the system.") % serial
+            )
+
         # If user already manually set a GRZ number, don't overwrite it
         if self.grz_number_b:
             return
