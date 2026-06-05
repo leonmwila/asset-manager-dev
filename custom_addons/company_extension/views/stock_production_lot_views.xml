@@ -12,6 +12,7 @@
                     <field name="program_id" string="Program"/>
                     <field name="project_id" string="Project"/>
                     <field name="assigned_to" string="Assigned To"/>
+                    <field name="condition_state" string="Condition"/>
                     <field name="product_model" string="Model" readonly="1"/>
                     <field name="grz_number_b" string="GRZ Number B" options="{'no_create': True, 'no_edit': True}"/>
                     <field name="grz_number" string="GRZ Number" readonly="1"/>
@@ -65,9 +66,19 @@
                 <field name="categ_id" string="Category"/>
                 <field name="category_2_id" string="Description Category 2"/>
                 <field name="district_id" string="Station"/>
+                <field name="condition_state" string="Condition"/>
+            </xpath>
+            <xpath expr="//search" position="inside">
+                <separator/>
+                <filter name="condition_new" string="Condition: NEW" domain="[('condition_state', '=', 'NEW')]"/>
+                <filter name="condition_good" string="Condition: GOOD" domain="[('condition_state', '=', 'GOOD')]"/>
+                <filter name="condition_functional" string="Condition: FUNCTIONAL" domain="[('condition_state', '=', 'FUNCTIONAL')]"/>
+                <filter name="condition_bad" string="Condition: BAD" domain="[('condition_state', '=', 'BAD')]"/>
+                <filter name="condition_non_functional" string="Condition: NON FUNCTIONAL" domain="[('condition_state', '=', 'NON_FUNCTIONAL')]"/>
             </xpath>
             <!-- Add Category, Category 2, and Station to Group By filters -->
             <xpath expr="//filter[@name='group_by_product']" position="after">
+                <filter name="group_by_condition" string="Condition" domain="[]" context="{'group_by': 'condition_state'}"/>
                 <filter name="group_by_category" string="Category" domain="[]" context="{'group_by': 'categ_id'}"/>
                 <filter name="group_by_category_2" string="Description Category 2" domain="[]" context="{'group_by': 'category_2_id'}"/>
                 <filter name="group_by_station" string="Station" domain="[]" context="{'group_by': 'district_id'}"/>

@@ -1,4 +1,5 @@
-from odoo import models, fields, api
+from odoo import _, models, fields, api
+from odoo.exceptions import ValidationError
 
 
 class StockLot(models.Model):
@@ -23,6 +24,16 @@ class StockLot(models.Model):
         string='Assigned To',
         domain="[('company_id', '=', company_id)]",
         help="Employee to whom this serial number/equipment is assigned"
+    )
+    condition_state = fields.Selection(
+        [
+            ('NEW', 'NEW'),
+            ('GOOD', 'GOOD'),
+            ('FUNCTIONAL', 'FUNCTIONAL'),
+            ('BAD', 'BAD'),
+            ('NON_FUNCTIONAL', 'NON FUNCTIONAL'),
+        ],
+        string='Condition',
     )
     # Related fields from company for export purposes
     province_id = fields.Many2one('res.province', string='Province', related='company_id.province', readonly=True, store=True, help='Province of the company/institution')
@@ -101,9 +112,79 @@ class StockLot(models.Model):
             # Combine all parts
             record.grz_number = prefix + middle + suffix
 
+    def _resolve_grz_number_b(self, vals):
+        """If grz_number is supplied but grz_number_b is not, extract the
+        trailing numeric segment from grz_number and look it up in
+        grz.available.number so the user never has to supply GRZ Number B
+        manually (e.g. during Excel import).
+
+        Example: 'GRZ/SZI/OE/06435587'  →  number_padded '06435587'  →
+        number value 6435587  →  grz.available.number for company.
+        """
+        if vals.get('grz_number_b') or not vals.get('grz_number'):
+            return vals
+
+        raw = (vals['grz_number'] or '').strip()
+        if not raw:
+            return vals
+
+        last_segment = raw.rsplit('/', 1)[-1].strip()
+        if not last_segment.isdigit():
+            return vals
+
+        try:
+            number_int = int(last_segment)
+        except ValueError:
+            return vals
+
+        company_id = vals.get('company_id')
+        if not company_id:
+            return vals
+
+        grz_rec = self.env['grz.available.number'].search([
+            ('company_id', '=', company_id),
+            ('number', '=', number_int),
+        ], limit=1)
+
+        if grz_rec:
+            vals = dict(vals)
+            vals['grz_number_b'] = grz_rec.id
+            return vals
+
+        # Number not found — build a helpful error showing the accepted range.
+        company = self.env['res.company'].browse(company_id)
+        available = self.env['grz.available.number'].search([
+            ('company_id', '=', company_id),
+            ('is_used', '=', False),
+        ], order='number asc')
+
+        if available:
+            accepted = '%s – %s' % (
+                available[0].number_padded,
+                available[-1].number_padded,
+            )
+            hint = _("Accepted range for %(company)s: %(range)s") % {
+                'company': company.name,
+                'range': accepted,
+            }
+        else:
+            hint = _("No available GRZ numbers remain for %(company)s.") % {
+                'company': company.name,
+            }
+
+        raise ValidationError(
+            _("GRZ Number '%(grz)s' — suffix '%(suffix)s' is not in the allocated "
+              "range for this institution.\n%(hint)s") % {
+                'grz': raw,
+                'suffix': last_segment,
+                'hint': hint,
+            }
+        )
+
     @api.model_create_multi
     def create(self, vals_list):
-        """Override create to mark GRZ number as used"""
+        """Override create to auto-link grz_number_b from grz_number and mark as used."""
+        vals_list = [self._resolve_grz_number_b(v) for v in vals_list]
         records = super().create(vals_list)
         # Trigger recomputation of is_used for the selected grz_number_b
         for record in records:
@@ -112,7 +193,8 @@ class StockLot(models.Model):
         return records
 
     def write(self, vals):
-        """Override write to update is_used status when grz_number_b changes"""
+        """Override write to auto-link grz_number_b from grz_number and update is_used."""
+        vals = self._resolve_grz_number_b(vals)
         old_grz_numbers = {rec.id: rec.grz_number_b for rec in self}
         result = super().write(vals)
         if 'grz_number_b' in vals:
