@@ -1,0 +1,591 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_lot_barcode_labeler_document">
+        <t t-call="web.html_container">
+            <style>
+                @page {
+                    margin: 0;
+                }
+                .labeler-page {
+                    page-break-after: always;
+                    width: 100%;
+                    padding: 0;
+                    margin: 0;
+                    box-sizing: border-box;
+                    min-height: 0 !important;
+                    height: auto !important;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                .labeler-page.page {
+                    min-height: 0 !important;
+                    height: auto !important;
+                    padding: 0 !important;
+                    margin: 0 !important;
+                }
+                .labeler-page:last-child {
+                    page-break-after: auto;
+                }
+                .labeler-card {
+                    width: 100%;
+                    border: 1pt solid #000;
+                    box-sizing: border-box;
+                    padding: 4mm 2.5mm;
+                    margin: 0;
+                    position: relative;
+                    overflow: hidden;
+                    background: #fff;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    gap: 2mm;
+                }
+                .labeler-header {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-bottom: 0;
+                    table-layout: fixed;
+                }
+                .labeler-logo-cell {
+                    width: 22mm;
+                    vertical-align: middle;
+                    text-align: left;
+                }
+                .labeler-barcode-cell {
+                    vertical-align: middle;
+                    text-align: right;
+                }
+                .labeler-logo {
+                    width: 20mm;
+                    height: 20mm;
+                    object-fit: contain;
+                    flex-shrink: 0;
+                }
+                .labeler-logo-placeholder {
+                    width: 20mm;
+                    height: 20mm;
+                    border: 1px dashed #ccc;
+                    background: #f5f5f5;
+                    flex-shrink: 0;
+                }
+                .labeler-barcode {
+                    text-align: right;
+                }
+                .labeler-barcode > div {
+                    display: inline-block;
+                    max-width: 100%;
+                }
+                .labeler-barcode img {
+                    max-width: 100%;
+                    max-height: 18mm;
+                    width: auto;
+                }
+                .labeler-grz {
+                    margin-top: 0;
+                    background: #fff;
+                    color: #000;
+                    text-align: center;
+                    padding: 1.5mm 1mm;
+                    font-size: 10pt;
+                    font-weight: bold;
+                    font-family: Arial, sans-serif;
+                    letter-spacing: 0.4px;
+                    word-break: break-all;
+                    line-height: 1.1;
+                }
+            </style>
+
+            <t t-foreach="docs" t-as="lot">
+                <t t-set="company" t-value="lot.company_id or (lot.product_id and lot.product_id.company_id) or lot.env.company"/>
+                <div class="page labeler-page">
+                    <div class="labeler-card">
+                        <table class="labeler-header">
+                            <tr>
+                                <td class="labeler-logo-cell">
+                                <t t-if="company and company.logo">
+                                    <img class="labeler-logo" t-att-src="'data:image/png;base64,%s' % company.logo.decode('utf-8')" alt="Logo"/>
+                                </t>
+                                <t t-else="">
+                                    <div class="labeler-logo-placeholder"/>
+                                </t>
+                                </td>
+
+                                <td class="labeler-barcode-cell">
+                                    <div class="labeler-barcode">
+                                <t t-if="lot.grz_number">
+                                    <div t-field="lot.grz_number" t-options="{'widget': 'barcode', 'symbology': 'Code128', 'width': 800, 'height': 180, 'img_style': 'max-height:18mm;width:auto;'}"/>
+                                </t>
+                                <t t-else="">
+                                    <div t-field="lot.name" t-options="{'widget': 'barcode', 'symbology': 'Code128', 'width': 800, 'height': 180, 'img_style': 'max-height:18mm;width:auto;'}"/>
+                                </t>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div class="labeler-grz">
+                            <t t-esc="lot.grz_number or lot.name"/>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_lot_barcode_labeler_html_document">
+        <t t-call="web.html_container">
+            <style>
+                .labeler-sheet {
+                    width: 100%;
+                    margin: 0;
+                    padding: 0;
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 2mm;
+                    align-items: stretch;
+                }
+                .labeler-html-card {
+                    width: 148mm;
+                    min-height: 80mm;
+                    border: 1pt solid #000;
+                    box-sizing: border-box;
+                    padding: 4mm 2.5mm;
+                    background: #fff;
+                    break-inside: avoid;
+                    page-break-inside: avoid;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    gap: 2mm;
+                }
+                .labeler-header {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-bottom: 0;
+                    table-layout: fixed;
+                }
+                .labeler-logo-cell {
+                    width: 22mm;
+                    vertical-align: middle;
+                    text-align: left;
+                }
+                .labeler-barcode-cell {
+                    vertical-align: middle;
+                    text-align: right;
+                }
+                .labeler-logo {
+                    width: 20mm;
+                    height: 20mm;
+                    object-fit: contain;
+                }
+                .labeler-logo-placeholder {
+                    width: 20mm;
+                    height: 20mm;
+                    border: 1px dashed #ccc;
+                    background: #f5f5f5;
+                }
+                .labeler-barcode {
+                    text-align: right;
+                }
+                .labeler-barcode > div {
+                    display: inline-block;
+                    max-width: 100%;
+                }
+                .labeler-barcode img {
+                    max-width: 100%;
+                    max-height: 18mm;
+                    width: auto;
+                }
+                .labeler-grz {
+                    margin-top: 0;
+                    background: #fff;
+                    color: #000;
+                    text-align: center;
+                    padding: 1.5mm 1mm;
+                    font-size: 10pt;
+                    font-weight: bold;
+                    font-family: Arial, sans-serif;
+                    letter-spacing: 0.4px;
+                    word-break: break-all;
+                    line-height: 1.1;
+                }
+                @media print {
+                    body {
+                        margin: 0 !important;
+                    }
+                    .labeler-sheet {
+                        gap: 0 !important;
+                    }
+                    .labeler-html-card {
+                        margin: 0;
+                    }
+                }
+            </style>
+
+            <script type="text/javascript">
+                window.addEventListener('load', function () {
+                    setTimeout(function () {
+                        window.focus();
+                        window.print();
+                    }, 250);
+                });
+            </script>
+
+            <div class="labeler-sheet">
+                <t t-foreach="docs" t-as="lot">
+                    <t t-set="company" t-value="lot.company_id or (lot.product_id and lot.product_id.company_id) or lot.env.company"/>
+                    <div class="labeler-html-card">
+                        <table class="labeler-header">
+                            <tr>
+                                <td class="labeler-logo-cell">
+                                    <t t-if="company and company.logo">
+                                        <img class="labeler-logo" t-att-src="'data:image/png;base64,%s' % company.logo.decode('utf-8')" alt="Logo"/>
+                                    </t>
+                                    <t t-else="">
+                                        <div class="labeler-logo-placeholder"/>
+                                    </t>
+                                </td>
+                                <td class="labeler-barcode-cell">
+                                    <div class="labeler-barcode">
+                                        <t t-if="lot.grz_number">
+                                            <div t-field="lot.grz_number" t-options="{'widget': 'barcode', 'symbology': 'Code128', 'width': 800, 'height': 180, 'img_style': 'max-height:18mm;width:auto;'}"/>
+                                        </t>
+                                        <t t-else="">
+                                            <div t-field="lot.name" t-options="{'widget': 'barcode', 'symbology': 'Code128', 'width': 800, 'height': 180, 'img_style': 'max-height:18mm;width:auto;'}"/>
+                                        </t>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div class="labeler-grz">
+                            <t t-esc="lot.grz_number or lot.name"/>
+                        </div>
+                    </div>
+                </t>
+            </div>
+
+        </t>
+    </template>
+
+    <template id="report_lot_barcode_labeler_html_xprinter_39x45_document">
+        <t t-call="web.html_container">
+            <style>
+                .labeler-sheet {
+                    width: 100%;
+                    margin: 0;
+                    padding: 0;
+                    display: block;
+                }
+                .labeler-html-card {
+                    width: 41mm;
+                    min-height: 45mm;
+                    border: 1pt solid #000;
+                    box-sizing: border-box;
+                    padding: 2.5mm 2mm 2mm 2mm;
+                    background: #fff;
+                    break-inside: avoid;
+                    page-break-inside: avoid;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    gap: 1.5mm;
+                    margin: 0;
+                    break-after: page;
+                    page-break-after: always;
+                }
+                .labeler-html-card:last-child {
+                    break-after: auto;
+                    page-break-after: auto;
+                }
+                .labeler-header {
+                    width: 100%;
+                    margin-bottom: 0;
+                }
+                .labeler-logo-row {
+                    width: 100%;
+                    text-align: center;
+                    margin-bottom: 1.5mm;
+                }
+                .labeler-barcode-row {
+                    width: 100%;
+                    text-align: center;
+                }
+                .labeler-logo {
+                    width: 12mm;
+                    height: 12mm;
+                    object-fit: contain;
+                }
+                .labeler-logo-placeholder {
+                    width: 12mm;
+                    height: 12mm;
+                    border: 1px dashed #ccc;
+                    background: #f5f5f5;
+                    margin: 0 auto;
+                }
+                .labeler-barcode {
+                    width: 100%;
+                    text-align: center;
+                }
+                .labeler-barcode > div {
+                    display: block;
+                    width: 100%;
+                }
+                .labeler-barcode img {
+                    max-width: 100%;
+                    height: 13mm;
+                    width: 100%;
+                    object-fit: contain;
+                    image-rendering: optimizeSpeed;
+                    image-rendering: crisp-edges;
+                    image-rendering: pixelated;
+                }
+                .labeler-grz {
+                    margin-top: 0;
+                    background: #fff;
+                    color: #000;
+                    text-align: center;
+                    padding: 1mm 0.8mm;
+                    font-size: 8pt;
+                    font-weight: bold;
+                    font-family: Arial, sans-serif;
+                    letter-spacing: 0.2px;
+                    word-break: break-all;
+                    line-height: 1.1;
+                }
+                @media print {
+                    @page {
+                        size: 41mm 45mm;
+                        margin: 0;
+                    }
+                    html, body {
+                        margin: 0 !important;
+                        padding: 0 !important;
+                    }
+                    body {
+                        padding-top: 1.5mm !important;
+                    }
+                    .labeler-sheet {
+                        display: block !important;
+                    }
+                    .labeler-html-card {
+                        width: 41mm !important;
+                        min-height: 45mm !important;
+                        page-break-after: always;
+                        break-after: page;
+                    }
+                    .labeler-html-card:last-child {
+                        page-break-after: auto;
+                        break-after: auto;
+                    }
+                }
+            </style>
+
+            <script type="text/javascript">
+                window.addEventListener('load', function () {
+                    setTimeout(function () {
+                        window.focus();
+                        window.print();
+                    }, 250);
+                });
+            </script>
+
+            <div class="labeler-sheet">
+                <t t-foreach="docs" t-as="lot">
+                    <t t-set="company" t-value="lot.company_id or (lot.product_id and lot.product_id.company_id) or lot.env.company"/>
+                    <div class="labeler-html-card">
+                        <div class="labeler-header">
+                            <div class="labeler-logo-row">
+                                    <t t-if="company and company.logo">
+                                        <img class="labeler-logo" t-att-src="'data:image/png;base64,%s' % company.logo.decode('utf-8')" alt="Logo"/>
+                                    </t>
+                                    <t t-else="">
+                                        <div class="labeler-logo-placeholder"/>
+                                    </t>
+                            </div>
+                            <div class="labeler-barcode-row">
+                                    <div class="labeler-barcode">
+                                        <t t-if="lot.grz_number">
+                                            <div t-field="lot.grz_number" t-options="{'widget': 'barcode', 'symbology': 'Code128', 'width': 1400, 'height': 320, 'img_style': 'height:13mm;width:100%;'}"/>
+                                        </t>
+                                        <t t-else="">
+                                            <div t-field="lot.name" t-options="{'widget': 'barcode', 'symbology': 'Code128', 'width': 1400, 'height': 320, 'img_style': 'height:13mm;width:100%;'}"/>
+                                        </t>
+                                    </div>
+                            </div>
+                        </div>
+
+                        <div class="labeler-grz">
+                            <t t-esc="lot.grz_number or lot.name"/>
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_lot_barcode_labeler_html_xprinter_41x45_qr_document">
+        <t t-call="web.html_container">
+            <style>
+                .labeler-sheet {
+                    width: 100%;
+                    margin: 0;
+                    padding: 0;
+                    display: block;
+                }
+                .labeler-html-card {
+                    width: 41mm;
+                    min-height: 45mm;
+                    border: 1pt solid #000;
+                    box-sizing: border-box;
+                    padding: 2.5mm 2mm 2mm 2mm;
+                    background: #fff;
+                    break-inside: avoid;
+                    page-break-inside: avoid;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    gap: 1.5mm;
+                    margin: 0;
+                    break-after: page;
+                    page-break-after: always;
+                }
+                .labeler-html-card:last-child {
+                    break-after: auto;
+                    page-break-after: auto;
+                }
+                .labeler-header {
+                    width: 100%;
+                    margin-bottom: 0;
+                }
+                .labeler-logo-row {
+                    width: 100%;
+                    text-align: center;
+                    margin-bottom: 1.5mm;
+                }
+                .labeler-barcode-row {
+                    width: 100%;
+                    text-align: center;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                .labeler-logo {
+                    width: 12mm;
+                    height: 12mm;
+                    object-fit: contain;
+                }
+                .labeler-logo-placeholder {
+                    width: 12mm;
+                    height: 12mm;
+                    border: 1px dashed #ccc;
+                    background: #f5f5f5;
+                    margin: 0 auto;
+                }
+                .labeler-barcode {
+                    width: 100%;
+                    text-align: center;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                .labeler-barcode > div {
+                    display: inline-flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                .labeler-barcode img {
+                    max-width: 100%;
+                    max-height: 20mm;
+                    width: auto;
+                    height: auto;
+                    object-fit: contain;
+                    image-rendering: optimizeSpeed;
+                    image-rendering: crisp-edges;
+                    image-rendering: pixelated;
+                }
+                .labeler-grz {
+                    margin-top: 0;
+                    background: #fff;
+                    color: #000;
+                    text-align: center;
+                    padding: 1mm 0.8mm;
+                    font-size: 8pt;
+                    font-weight: bold;
+                    font-family: Arial, sans-serif;
+                    letter-spacing: 0.2px;
+                    word-break: break-all;
+                    line-height: 1.1;
+                }
+                @media print {
+                    @page {
+                        size: 41mm 45mm;
+                        margin: 0;
+                    }
+                    html, body {
+                        margin: 0 !important;
+                        padding: 0 !important;
+                    }
+                    body {
+                        padding-top: 1.5mm !important;
+                    }
+                    .labeler-sheet {
+                        display: block !important;
+                    }
+                    .labeler-html-card {
+                        width: 41mm !important;
+                        min-height: 45mm !important;
+                        page-break-after: always;
+                        break-after: page;
+                    }
+                    .labeler-html-card:last-child {
+                        page-break-after: auto;
+                        break-after: auto;
+                    }
+                }
+            </style>
+
+            <script type="text/javascript">
+                window.addEventListener('load', function () {
+                    setTimeout(function () {
+                        window.focus();
+                        window.print();
+                    }, 250);
+                });
+            </script>
+
+            <div class="labeler-sheet">
+                <t t-foreach="docs" t-as="lot">
+                    <t t-set="company" t-value="lot.company_id or (lot.product_id and lot.product_id.company_id) or lot.env.company"/>
+                    <div class="labeler-html-card">
+                        <div class="labeler-header">
+                            <div class="labeler-logo-row">
+                                    <t t-if="company and company.logo">
+                                        <img class="labeler-logo" t-att-src="'data:image/png;base64,%s' % company.logo.decode('utf-8')" alt="Logo"/>
+                                    </t>
+                                    <t t-else="">
+                                        <div class="labeler-logo-placeholder"/>
+                                    </t>
+                            </div>
+                            <div class="labeler-barcode-row">
+                                    <div class="labeler-barcode">
+                                        <t t-if="lot.grz_number">
+                                            <div t-field="lot.grz_number" t-options="{'widget': 'barcode', 'symbology': 'QR', 'width': 600, 'height': 600, 'img_style': 'max-height:20mm;max-width:20mm;width:auto;height:auto;'}"/>
+                                        </t>
+                                        <t t-else="">
+                                            <div t-field="lot.name" t-options="{'widget': 'barcode', 'symbology': 'QR', 'width': 600, 'height': 600, 'img_style': 'max-height:20mm;max-width:20mm;width:auto;height:auto;'}"/>
+                                        </t>
+                                    </div>
+                            </div>
+                        </div>
+
+                        <div class="labeler-grz">
+                            <t t-esc="lot.grz_number or lot.name"/>
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,6 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oemis-odoo
+spec:
+  replicas: 1

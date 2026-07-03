@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: oemis-odoo
+spec:
+  selector:
+    app: oemis-odoo
+  ports:
+    - name: http
+      port: 8069
+      targetPort: 8069

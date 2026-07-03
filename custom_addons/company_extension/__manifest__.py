@@ -3,7 +3,7 @@
     'version': '1.40',
     'category': 'Base',
     'summary': 'Adds Province, District, GRZ Number, Company Type, and Institution terminology',
-    'depends': ['base','stock', 'product', 'repair', 'hr'],
+    'depends': ['base', 'mail', 'stock', 'product', 'repair', 'hr'],
     'data': [
         'security/ir.model.access.csv',
         'security/stock_lot_rule_override.xml',

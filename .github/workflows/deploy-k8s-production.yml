@@ -1,0 +1,42 @@
+name: Deploy K8s Production
+
+on:
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: "Image tag to deploy (example: sha-abc1234 or latest)"
+        required: true
+        default: latest
+
+permissions:
+  contents: read
+
+jobs:
+  deploy-production:
+    runs-on: ubuntu-latest
+    env:
+      KUBECONFIG: ${{ github.workspace }}/.kube/config
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v4
+
+      - name: Write kubeconfig
+        run: |
+          mkdir -p "$(dirname "$KUBECONFIG")"
+          printf '%s' '${{ secrets.KUBECONFIG_PRODUCTION }}' > "$KUBECONFIG"
+          chmod 600 "$KUBECONFIG"
+
+      - name: Verify cluster access
+        run: kubectl cluster-info
+
+      - name: Update production image tag
+        run: |
+          sed -i "s/newTag: .*/newTag: ${{ github.event.inputs.image_tag }}/" k8s/overlays/production/kustomization.yaml
+
+      - name: Deploy production overlay
+        run: |
+          kubectl apply -k k8s/overlays/production
+          kubectl -n oemis rollout status deployment/oemis-odoo --timeout=300s

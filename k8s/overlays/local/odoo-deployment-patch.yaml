@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oemis-odoo
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: oemis-odoo
+          imagePullPolicy: Never
+          readinessProbe:
+            $patch: replace
+            tcpSocket:
+              port: 8069
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 6
+          livenessProbe:
+            $patch: replace
+            tcpSocket:
+              port: 8069
+            initialDelaySeconds: 60
+            periodSeconds: 20
+            timeoutSeconds: 5
+            failureThreshold: 6

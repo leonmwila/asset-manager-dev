@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <function model="ir.rule" name="write">
+            <value eval="[ref('stock.stock_production_lot_rule')]"/>
+            <value eval="{'domain_force': &quot;['|', ('company_id', 'in', company_ids + [False]), '&amp;', ('donation_ids.recipient_company_id', 'in', company_ids), ('donation_ids.state', 'in', ['pending', 'accepted'])]&quot;}"/>
+        </function>
+    </data>
+</odoo>

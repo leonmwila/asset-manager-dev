@@ -13,3 +13,4 @@ from . import repair_order
 from . import repair_spare_part_request
 from . import repair_transfer_request
 from . import repair_return_request
+from . import audit_chatter

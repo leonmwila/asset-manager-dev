@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paperformat_lot_barcode_labeler" model="report.paperformat">
+        <field name="name">Lot Barcode Labeler Compact</field>
+        <field name="default" eval="False"/>
+        <field name="format">custom</field>
+        <field name="page_height">80</field>
+        <field name="page_width">148</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">2</field>
+        <field name="margin_bottom">2</field>
+        <field name="margin_left">2</field>
+        <field name="margin_right">2</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">96</field>
+    </record>
+
+    <record id="paperformat_lot_barcode_labeler_97_1x54_3" model="report.paperformat">
+        <field name="name">Lot Barcode Labeler 97.1 x 54.3 mm</field>
+        <field name="default" eval="False"/>
+        <field name="format">custom</field>
+        <field name="page_height">54</field>
+        <field name="page_width">97</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">2</field>
+        <field name="margin_bottom">2</field>
+        <field name="margin_left">2</field>
+        <field name="margin_right">2</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">96</field>
+    </record>
+
+    <record id="paperformat_lot_barcode_labeler_50_8x101_6" model="report.paperformat">
+        <field name="name">Lot Barcode Labeler 50.8 x 101.6 mm</field>
+        <field name="default" eval="False"/>
+        <field name="format">custom</field>
+        <field name="page_height">51</field>
+        <field name="page_width">102</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">2</field>
+        <field name="margin_bottom">2</field>
+        <field name="margin_left">2</field>
+        <field name="margin_right">2</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">96</field>
+    </record>
+
+    <record id="paperformat_lot_barcode_labeler_101_6x101_6" model="report.paperformat">
+        <field name="name">Lot Barcode Labeler 101.6 x 101.6 mm</field>
+        <field name="default" eval="False"/>
+        <field name="format">custom</field>
+        <field name="page_height">102</field>
+        <field name="page_width">102</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">2</field>
+        <field name="margin_bottom">2</field>
+        <field name="margin_left">2</field>
+        <field name="margin_right">2</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">96</field>
+    </record>
+
+    <record id="paperformat_lot_barcode_labeler_101_6x152_4" model="report.paperformat">
+        <field name="name">Lot Barcode Labeler 101.6 x 152.4 mm</field>
+        <field name="default" eval="False"/>
+        <field name="format">custom</field>
+        <field name="page_height">102</field>
+        <field name="page_width">152</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">2</field>
+        <field name="margin_bottom">2</field>
+        <field name="margin_left">2</field>
+        <field name="margin_right">2</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">96</field>
+    </record>
+
+    <record id="paperformat_lot_barcode_labeler_100x150" model="report.paperformat">
+        <field name="name">Lot Barcode Labeler 100 x 150 mm</field>
+        <field name="default" eval="False"/>
+        <field name="format">custom</field>
+        <field name="page_height">100</field>
+        <field name="page_width">150</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">2</field>
+        <field name="margin_bottom">2</field>
+        <field name="margin_left">2</field>
+        <field name="margin_right">2</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">96</field>
+    </record>
+
+    <record id="paperformat_lot_barcode_labeler_100x180" model="report.paperformat">
+        <field name="name">Lot Barcode Labeler 100 x 180 mm</field>
+        <field name="default" eval="False"/>
+        <field name="format">custom</field>
+        <field name="page_height">100</field>
+        <field name="page_width">180</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">2</field>
+        <field name="margin_bottom">2</field>
+        <field name="margin_left">2</field>
+        <field name="margin_right">2</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">96</field>
+    </record>
+
+    <record id="report_lot_barcode_labeler" model="ir.actions.report">
+        <field name="name">Lot/Serial Labeler Barcode (One Per Page)</field>
+        <field name="model">stock.lot</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">serial_barcode_printer_from_labeler.report_lot_barcode_labeler_document</field>
+        <field name="report_file">serial_barcode_printer_from_labeler.report_lot_barcode_labeler_document</field>
+        <field name="paperformat_id" ref="serial_barcode_printer_from_labeler.paperformat_lot_barcode_labeler"/>
+        <field name="binding_model_id" ref="stock.model_stock_lot"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="report_lot_barcode_labeler_html" model="ir.actions.report">
+        <field name="name">Lot/Serial Labeler Images (HTML)</field>
+        <field name="model">stock.lot</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">serial_barcode_printer_from_labeler.report_lot_barcode_labeler_html_document</field>
+        <field name="report_file">serial_barcode_printer_from_labeler.report_lot_barcode_labeler_html_document</field>
+        <field name="binding_model_id" ref="stock.model_stock_lot"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="report_lot_barcode_labeler_html_xprinter_39x45" model="ir.actions.report">
+        <field name="name">Lot/Serial Label Images (HTML) 39 x 45 mm</field>
+        <field name="model">stock.lot</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">serial_barcode_printer_from_labeler.report_lot_barcode_labeler_html_xprinter_39x45_document</field>
+        <field name="report_file">serial_barcode_printer_from_labeler.report_lot_barcode_labeler_html_xprinter_39x45_document</field>
+        <field name="binding_model_id" ref="stock.model_stock_lot"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="report_lot_barcode_labeler_html_xprinter_41x45_qr" model="ir.actions.report">
+        <field name="name">Lot/Serial Label Images (HTML) 41 x 45 mm - QR Code</field>
+        <field name="model">stock.lot</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">serial_barcode_printer_from_labeler.report_lot_barcode_labeler_html_xprinter_41x45_qr_document</field>
+        <field name="report_file">serial_barcode_printer_from_labeler.report_lot_barcode_labeler_html_xprinter_41x45_qr_document</field>
+        <field name="binding_model_id" ref="stock.model_stock_lot"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="report_lot_barcode_labeler_97_1x54_3" model="ir.actions.report">
+        <field name="name">Lot Labeler Barcode 97.1 x 54.3 mm</field>
+        <field name="model">stock.lot</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">serial_barcode_printer_from_labeler.report_lot_barcode_labeler_document</field>
+        <field name="report_file">serial_barcode_printer_from_labeler.report_lot_barcode_labeler_document</field>
+        <field name="paperformat_id" ref="serial_barcode_printer_from_labeler.paperformat_lot_barcode_labeler_97_1x54_3"/>
+        <field name="binding_model_id" ref="stock.model_stock_lot"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="report_lot_barcode_labeler_50_8x101_6" model="ir.actions.report">
+        <field name="name">Lot Labeler Barcode 50.8 x 101.6 mm</field>
+        <field name="model">stock.lot</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">serial_barcode_printer_from_labeler.report_lot_barcode_labeler_document</field>
+        <field name="report_file">serial_barcode_printer_from_labeler.report_lot_barcode_labeler_document</field>
+        <field name="paperformat_id" ref="serial_barcode_printer_from_labeler.paperformat_lot_barcode_labeler_50_8x101_6"/>
+        <field name="binding_model_id" ref="stock.model_stock_lot"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="report_lot_barcode_labeler_101_6x101_6" model="ir.actions.report">
+        <field name="name">Lot Labeler Barcode 101.6 x 101.6 mm</field>
+        <field name="model">stock.lot</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">serial_barcode_printer_from_labeler.report_lot_barcode_labeler_document</field>
+        <field name="report_file">serial_barcode_printer_from_labeler.report_lot_barcode_labeler_document</field>
+        <field name="paperformat_id" ref="serial_barcode_printer_from_labeler.paperformat_lot_barcode_labeler_101_6x101_6"/>
+        <field name="binding_model_id" ref="stock.model_stock_lot"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="report_lot_barcode_labeler_101_6x152_4" model="ir.actions.report">
+        <field name="name">Lot Labeler Barcode 101.6 x 152.4 mm</field>
+        <field name="model">stock.lot</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">serial_barcode_printer_from_labeler.report_lot_barcode_labeler_document</field>
+        <field name="report_file">serial_barcode_printer_from_labeler.report_lot_barcode_labeler_document</field>
+        <field name="paperformat_id" ref="serial_barcode_printer_from_labeler.paperformat_lot_barcode_labeler_101_6x152_4"/>
+        <field name="binding_model_id" ref="stock.model_stock_lot"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="report_lot_barcode_labeler_100x150" model="ir.actions.report">
+        <field name="name">Lot Labeler Barcode 100 x 150 mm</field>
+        <field name="model">stock.lot</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">serial_barcode_printer_from_labeler.report_lot_barcode_labeler_document</field>
+        <field name="report_file">serial_barcode_printer_from_labeler.report_lot_barcode_labeler_document</field>
+        <field name="paperformat_id" ref="serial_barcode_printer_from_labeler.paperformat_lot_barcode_labeler_100x150"/>
+        <field name="binding_model_id" ref="stock.model_stock_lot"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="report_lot_barcode_labeler_100x180" model="ir.actions.report">
+        <field name="name">Lot Labeler Barcode 100 x 180 mm</field>
+        <field name="model">stock.lot</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">serial_barcode_printer_from_labeler.report_lot_barcode_labeler_document</field>
+        <field name="report_file">serial_barcode_printer_from_labeler.report_lot_barcode_labeler_document</field>
+        <field name="paperformat_id" ref="serial_barcode_printer_from_labeler.paperformat_lot_barcode_labeler_100x180"/>
+        <field name="binding_model_id" ref="stock.model_stock_lot"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

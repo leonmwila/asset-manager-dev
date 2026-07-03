@@ -22,6 +22,7 @@ class StockLot(models.Model):
     disposal_record_id = fields.Many2one('asset.disposal', string='Disposal Record', readonly=True)
 
     disposal_ids = fields.One2many('asset.disposal', 'asset_id', string='Disposals')
+    donation_ids = fields.One2many('asset.donation', 'asset_id', string='Donations')
     disposal_count = fields.Integer(compute='_compute_disposal_count')
 
     @api.model_create_multi

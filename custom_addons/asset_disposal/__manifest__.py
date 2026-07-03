@@ -7,6 +7,7 @@
     'data': [
         'security/ir.model.access.csv',
         'security/asset_donation_rules.xml',
+        'security/stock_lot_donation_access_rule.xml',
         'data/asset_disposal_sequence.xml',
         'data/asset_donation_sequence.xml',
         'views/asset_disposal_views.xml',

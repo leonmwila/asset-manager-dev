@@ -35,23 +35,28 @@ class AssetDonation(models.Model):
 
     def action_accept(self):
         self.ensure_one()
-        if self.state != 'pending':
+        donation = self.sudo()
+        if donation.state != 'pending':
             return False
-        if not self.recipient_company_id:
+        if not donation.recipient_company_id:
             raise UserError(_('Recipient institution is required.'))
-        ctx = dict(self.env.context)
-        defaults = self._prepare_new_lot_vals()
-        for key, value in defaults.items():
-            ctx['default_%s' % key] = value
-        ctx['donation_id'] = self.id
-        ctx['donation_company_id'] = self.recipient_company_id.id
+
+        vals = donation._prepare_new_lot_vals()
+        create_ctx = dict(self.env.context)
+        create_ctx.update({
+            'donation_id': donation.id,
+            'donation_company_id': donation.recipient_company_id.id,
+            'preserve_donation_grz': True,
+            # Donated serials may carry a GRZ number outside the recipient
+            # institution's allocated range. Keep GRZ Number B empty.
+            'allow_external_grz_number': True,
+        })
+
+        self.env['stock.lot'].with_context(create_ctx).sudo().create(vals)
+
         return {
-            'type': 'ir.actions.act_window',
-            'name': _('Create Asset From Donation'),
-            'res_model': 'stock.lot',
-            'view_mode': 'form',
-            'target': 'current',
-            'context': ctx,
+            'type': 'ir.actions.client',
+            'tag': 'reload',
         }
 
     def action_reject(self):
@@ -60,29 +65,29 @@ class AssetDonation(models.Model):
 
     def _prepare_new_lot_vals(self):
         self.ensure_one()
-        lot = self.asset_id
-        excluded = {
-            'id', 'display_name', 'create_uid', 'create_date', 'write_uid', 'write_date',
-            'company_id', 'asset_state', 'disposal_method', 'disposal_date',
-            'disposal_record_id', 'disposal_ids', 'disposal_count',
-            'quant_ids', 'product_qty', 'location_id', 'delivery_ids', 'delivery_count',
-            'partner_ids', 'lot_properties', 'ref',
+        donation = self.sudo()
+        lot = donation.asset_id
+        # Use a conservative whitelist to avoid bringing cross-company linked
+        # relation values into defaults during donation acceptance.
+        data = {
+            'name': lot.name,
+            'product_id': lot.product_id.id,
+            'company_id': donation.recipient_company_id.id,
         }
-        fields_to_copy = []
-        for field_name, field in lot._fields.items():
-            if not field.store or field.compute or field.related:
-                continue
-            if field_name in excluded:
-                continue
-            fields_to_copy.append(field_name)
-        data = lot.read(fields_to_copy)[0] if fields_to_copy else {}
-        data.pop('id', None)
-        data['product_id'] = lot.product_id.id
-        data['company_id'] = self.recipient_company_id.id
-        if 'name' in lot._fields and not data.get('name'):
-            data['name'] = lot.name
+
+        optional_simple_fields = [
+            'program_id', 'project_id', 'assigned_to', 'condition_state',
+            'vehicle_make', 'engine_no', 'plate_no', 'department_id',
+            'acquisition_date', 'supplier_id', 'fair_value', 'lot_acquisition_price',
+            'depreciation_amount', 'nbv', 'disposal_price',
+        ]
+        for field_name in optional_simple_fields:
+            if field_name in lot._fields:
+                value = lot[field_name]
+                data[field_name] = value.id if getattr(value, 'id', False) else value
+
         if 'grz_number' in lot._fields:
-            data['grz_number'] = False
+            data['grz_number'] = lot.grz_number or False
         if 'grz_number_b' in lot._fields:
             data['grz_number_b'] = False
         if 'asset_state' in lot._fields:

@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oemis-odoo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oemis-odoo
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: oemis-odoo
+    spec:
+      containers:
+        - name: oemis-odoo
+          image: ghcr.io/leonmwila/oemis:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8069
+              name: http
+          volumeMounts:
+            - name: oemis-odoo-data
+              mountPath: /var/lib/odoo
+            - name: oemis-odoo-config
+              mountPath: /etc/odoo/odoo.conf
+              subPath: odoo.conf
+          readinessProbe:
+            httpGet:
+              path: /web/health
+              port: 8069
+            initialDelaySeconds: 25
+            periodSeconds: 10
+            timeoutSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /web/health
+              port: 8069
+            initialDelaySeconds: 45
+            periodSeconds: 20
+            timeoutSeconds: 3
+          resources:
+            requests:
+              cpu: 500m
+              memory: 1Gi
+            limits:
+              cpu: "2"
+              memory: 4Gi
+      volumes:
+        - name: oemis-odoo-data
+          persistentVolumeClaim:
+            claimName: oemis-odoo-data
+        - name: oemis-odoo-config
+          configMap:
+            name: oemis-odoo-config

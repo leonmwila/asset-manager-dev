@@ -1,0 +1,10 @@
+.git
+.gitignore
+.env
+.env.*
+*.log
+__pycache__
+**/__pycache__
+**/*.pyc
+oemis-odoo-local.tar
+k8s

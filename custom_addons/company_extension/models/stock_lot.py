@@ -68,6 +68,9 @@ class StockLot(models.Model):
     @api.onchange('company_id')
     def _onchange_company_id_grz_numbers(self):
         """Reset GRZ Number B when company changes and ensure numbers exist"""
+        if self.env.context.get('preserve_donation_grz') and self.grz_number and self.grz_number_b:
+            return
+
         self.grz_number_b = False
         # Ensure available numbers exist for this company
         if self.company_id:
@@ -76,6 +79,9 @@ class StockLot(models.Model):
     @api.onchange('company_id', 'program_id', 'project_id', 'product_id', 'grz_number_b')
     def _onchange_build_grz_number(self):
         for record in self:
+            if record.env.context.get('preserve_donation_grz') and record.grz_number and record.grz_number_b:
+                continue
+
             if not record.company_id:
                 record.grz_number = ''
                 continue
@@ -121,6 +127,9 @@ class StockLot(models.Model):
         Example: 'GRZ/SZI/OE/06435587'  →  number_padded '06435587'  →
         number value 6435587  →  grz.available.number for company.
         """
+        if self.env.context.get('allow_external_grz_number'):
+            return vals
+
         if vals.get('grz_number_b') or not vals.get('grz_number'):
             return vals
 

@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: oemis-odoo-config
+data:
+  odoo.conf: |
+    [options]
+    db_host = oemis-postgres
+    db_port = 5432
+    db_user = odoo
+    db_password = CHANGE_ME
+    db_maxconn = 64
+    http_port = 8069
+    proxy_mode = True
+    addons_path = /usr/lib/python3/dist-packages/odoo/addons,/mnt/extra-addons,/mnt/custom-addons
+    log_level = info
+    logfile = False
+    workers = 4
+    max_cron_threads = 2
+    list_db = False
+    admin_passwd = CHANGE_ME
+    data_dir = /var/lib/odoo

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stock_lot_form_inherit_labeler_barcode" model="ir.ui.view">
+        <field name="name">stock.lot.form.inherit.labeler.barcode</field>
+        <field name="model">stock.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="before">
+                <header>
+                <button name="action_print_labeler_barcodes"
+                        string="Print Labeler PDF"
+                        type="object"
+                        class="oe_highlight"/>
+                </header>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_lot_print_labeler_pdf" model="ir.actions.server">
+        <field name="name">Print Labeler PDF</field>
+        <field name="model_id" ref="stock.model_stock_lot"/>
+        <field name="binding_model_id" ref="stock.model_stock_lot"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+if records:
+    action = records.action_print_labeler_barcodes()
+        </field>
+    </record>
+</odoo>

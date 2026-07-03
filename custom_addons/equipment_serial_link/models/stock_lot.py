@@ -9,6 +9,9 @@ class StockLot(models.Model):
     def create(self, vals_list):
         import re
         from odoo.exceptions import ValidationError
+
+        if self.env.context.get('allow_external_grz_number'):
+            return super().create(vals_list)
         
         # Validate GRZ Number range for each record
         if not isinstance(vals_list, list):
