@@ -3,7 +3,10 @@ kind: Service
 metadata:
   name: oemis-odoo
 spec:
+  $patch: replace
   type: LoadBalancer
+  selector:
+    app: oemis-odoo
   ports:
     - name: http
       port: 3000
