@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_stock_lot_form_inherit_vehicle_details" model="ir.ui.view">
+        <field name="name">stock.lot.form.inherit.vehicle.details</field>
+        <field name="model">stock.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="is_vehicle_category" invisible="1"/>
+                <group string="Vehicle Information" invisible="not is_vehicle_category">
+                    <group>
+                        <field name="vehicle_license_plate"/>
+                        <field name="vehicle_vin"/>
+                        <field name="vehicle_chassis_number"/>
+                        <field name="vehicle_engine_number"/>
+                        <field name="vehicle_make"/>
+                        <field name="vehicle_model"/>
+                        <field name="vehicle_model_year"/>
+                        <field name="vehicle_body_type"/>
+                        <field name="vehicle_fuel_type"/>
+                        <field name="vehicle_transmission_type"/>
+                    </group>
+                    <group>
+                        <field name="vehicle_exterior_color"/>
+                        <field name="vehicle_interior_color"/>
+                        <field name="vehicle_odometer_value"/>
+                        <field name="vehicle_odometer_unit"/>
+                        <field name="vehicle_insurance_policy_number"/>
+                        <field name="vehicle_insurance_provider"/>
+                        <field name="vehicle_insurance_start_date"/>
+                        <field name="vehicle_insurance_end_date"/>
+                        <field name="vehicle_insurance_type"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

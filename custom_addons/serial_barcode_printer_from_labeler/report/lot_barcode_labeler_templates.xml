@@ -588,4 +588,170 @@
             </div>
         </t>
     </template>
+
+    <template id="report_lot_barcode_labeler_html_xprinter_38x25_qr_document">
+        <t t-call="web.html_container">
+            <style>
+                .labeler-sheet {
+                    width: 100%;
+                    margin: 0;
+                    padding: 0;
+                    display: block;
+                }
+                .labeler-html-card {
+                    width: 38mm;
+                    min-height: 25mm;
+                    border: 1pt solid #000;
+                    box-sizing: border-box;
+                    padding: 1.5mm;
+                    background: #fff;
+                    break-inside: avoid;
+                    page-break-inside: avoid;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    gap: 1mm;
+                    margin: 0;
+                    break-after: page;
+                    page-break-after: always;
+                }
+                .labeler-html-card:last-child {
+                    break-after: auto;
+                    page-break-after: auto;
+                }
+                .labeler-header {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 1.5mm;
+                }
+                .labeler-logo-wrap {
+                    width: 10mm;
+                    min-width: 10mm;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                .labeler-logo {
+                    width: 9mm;
+                    height: 9mm;
+                    object-fit: contain;
+                }
+                .labeler-logo-placeholder {
+                    width: 9mm;
+                    height: 9mm;
+                    border: 1px dashed #ccc;
+                    background: #f5f5f5;
+                }
+                .labeler-barcode-wrap {
+                    flex: 1 1 auto;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    min-width: 0;
+                }
+                .labeler-barcode {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                .labeler-barcode > div {
+                    display: inline-flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                .labeler-barcode img {
+                    width: 18mm;
+                    height: 18mm;
+                    max-width: 18mm;
+                    max-height: 18mm;
+                    object-fit: contain;
+                    image-rendering: optimizeSpeed;
+                    image-rendering: crisp-edges;
+                    image-rendering: pixelated;
+                }
+                .labeler-grz {
+                    margin-top: 0;
+                    background: #fff;
+                    color: #000;
+                    text-align: center;
+                    padding: 0.4mm 0.3mm 0;
+                    font-size: 6.5pt;
+                    font-weight: bold;
+                    font-family: Arial, sans-serif;
+                    letter-spacing: 0.1px;
+                    word-break: break-all;
+                    line-height: 1.05;
+                }
+                @media print {
+                    @page {
+                        size: 38mm 25mm;
+                        margin: 0;
+                    }
+                    html, body {
+                        margin: 0 !important;
+                        padding: 0 !important;
+                    }
+                    body {
+                        padding-top: 1mm !important;
+                    }
+                    .labeler-sheet {
+                        display: block !important;
+                    }
+                    .labeler-html-card {
+                        width: 38mm !important;
+                        min-height: 25mm !important;
+                        page-break-after: always;
+                        break-after: page;
+                    }
+                    .labeler-html-card:last-child {
+                        page-break-after: auto;
+                        break-after: auto;
+                    }
+                }
+            </style>
+
+            <script type="text/javascript">
+                window.addEventListener('load', function () {
+                    setTimeout(function () {
+                        window.focus();
+                        window.print();
+                    }, 250);
+                });
+            </script>
+
+            <div class="labeler-sheet">
+                <t t-foreach="docs" t-as="lot">
+                    <t t-set="company" t-value="lot.company_id or (lot.product_id and lot.product_id.company_id) or lot.env.company"/>
+                    <div class="labeler-html-card">
+                        <div class="labeler-header">
+                            <div class="labeler-logo-wrap">
+                                <t t-if="company and company.logo">
+                                    <img class="labeler-logo" t-att-src="'data:image/png;base64,%s' % company.logo.decode('utf-8')" alt="Logo"/>
+                                </t>
+                                <t t-else="">
+                                    <div class="labeler-logo-placeholder"/>
+                                </t>
+                            </div>
+                            <div class="labeler-barcode-wrap">
+                                <div class="labeler-barcode">
+                                    <t t-if="lot.grz_number">
+                                        <div t-field="lot.grz_number" t-options="{'widget': 'barcode', 'symbology': 'QR', 'width': 520, 'height': 520, 'img_style': 'width:18mm;height:18mm;max-width:18mm;max-height:18mm;'}"/>
+                                    </t>
+                                    <t t-else="">
+                                        <div t-field="lot.name" t-options="{'widget': 'barcode', 'symbology': 'QR', 'width': 520, 'height': 520, 'img_style': 'width:18mm;height:18mm;max-width:18mm;max-height:18mm;'}"/>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="labeler-grz">
+                            <t t-esc="lot.grz_number or lot.name"/>
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </t>
+    </template>
 </odoo>

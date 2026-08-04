@@ -64,8 +64,14 @@ Before deploying, update:
 
 - `k8s/overlays/production/postgres-secret-patch.yaml`
 - `k8s/overlays/production/odoo-config-patch.yaml`
-- `k8s/overlays/production/ingress-patch.yaml` (host and TLS secret)
+- `k8s/overlays/production/ingress-patch.yaml` (host and optional TLS secret)
 - `k8s/overlays/production/kustomization.yaml` image owner
+
+The production release flow is GHCR-based:
+
+1. Run or trigger [build-and-push-ghcr.yml](../.github/workflows/build-and-push-ghcr.yml) to publish the image.
+2. Dispatch [deploy-k8s-production.yml](../.github/workflows/deploy-k8s-production.yml) with the image tag you want to roll out.
+3. Point `oemis.grz.gov.zm` to the production server and let ingress serve the app on port 80.
 
 ## Naming and conventions used
 
@@ -81,7 +87,7 @@ This keeps cluster-visible resources easy to identify and prepares the project f
 Two workflows are included:
 
 - `.github/workflows/build-and-push-ghcr.yml`: builds and pushes image to GHCR.
-- `.github/workflows/deploy-k8s.yml`: manual deploy to staging or production.
+- `.github/workflows/deploy-k8s-production.yml`: manual deploy to production.
 
 Required GitHub repository secrets:
 
@@ -91,15 +97,17 @@ Required GitHub repository secrets:
 The build workflow publishes tags including `sha-*`, `staging-latest`, and release tags.
 Use the deploy workflow with an immutable `sha-*` tag for predictable rollouts.
 
-## Remote Server (10.128.128.70:3000) with K3s + GHCR
+## Remote Server (10.128.128.70) with K3s + GHCR
 
-This project now includes a production service patch that exposes Odoo on port `3000`:
+The production overlay is configured to expose Odoo through the cluster ingress on the standard HTTP port.
 
-- `k8s/overlays/production/odoo-service-patch.yaml` sets service type `LoadBalancer`, service port `3000`, target `8069`.
+Set the production host in `k8s/overlays/production/ingress-patch.yaml` to the public DNS name, for example:
 
-For a single VM with K3s, this allows direct access via:
+- `oemis.grz.gov.zm`
 
-- `http://10.128.128.70:3000`
+Once DNS points that host to the server IP, access should be:
+
+- `http://oemis.grz.gov.zm`
 
 ### Bootstrap server
 
@@ -130,6 +138,8 @@ If GHCR package is private, also ensure cluster has pull secret named `ghcr-cred
 - Local Minikube: NGINX ingress is simple and sufficient.
 - Staging/Production on K3s: Traefik is a good default.
 - For TLS automation, add cert-manager with Let’s Encrypt and switch TLS secrets to cert-manager managed certificates.
+
+For plain HTTP on port 80, use the `web` entrypoint in the production ingress patch. For HTTPS later, add a `tls` block and switch the Traefik entrypoint to `websecure`.
 
 ## Heavy import consideration
 

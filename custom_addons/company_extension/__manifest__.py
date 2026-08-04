@@ -6,9 +6,11 @@
     'depends': ['base', 'mail', 'stock', 'product', 'repair', 'hr'],
     'data': [
         'security/ir.model.access.csv',
+        'security/res_users_rule.xml',
         'security/stock_lot_rule_override.xml',
         'security/program_project.xml',
         'views/res_company_views.xml',
+        'views/res_users_views.xml',
         'views/stock_production_lot_views.xml',
         'views/product_category_views.xml',
         'views/product_category_2_views.xml',

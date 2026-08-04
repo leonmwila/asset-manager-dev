@@ -6,7 +6,7 @@
     'description': """
         Adds a new Product Type "Spares" and a Part Number field for products.
     """,
-    'depends': ['product', 'stock', 'repair'],
+    'depends': ['product', 'stock', 'maintenance'],
     'data': [
         'views/product_template_views.xml',
     ],

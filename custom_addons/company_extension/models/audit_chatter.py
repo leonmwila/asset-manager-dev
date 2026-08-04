@@ -1,4 +1,5 @@
 from odoo import _, api, models
+from markupsafe import Markup, escape
 
 
 class AuditChatterMixin(models.AbstractModel):
@@ -61,6 +62,44 @@ class AuditChatterMixin(models.AbstractModel):
         if field.type == 'binary':
             return _('binary content') if value else _('empty')
 
+        if field.type == 'properties':
+            if not value:
+                return _('empty')
+
+            data = None
+            if isinstance(value, dict):
+                data = value
+            elif hasattr(value, 'to_dict'):
+                try:
+                    data = value.to_dict()
+                except Exception:
+                    data = None
+            elif hasattr(value, 'items'):
+                try:
+                    data = dict(value.items())
+                except Exception:
+                    data = None
+
+            if data is not None:
+                if not data:
+                    return _('empty')
+                parts = []
+                for key, item in data.items():
+                    if isinstance(item, dict):
+                        display = item.get('value') or item.get('display_name') or item.get('name') or item.get('id')
+                    else:
+                        display = item
+                    if display in (False, None, ''):
+                        display = _('empty')
+                    parts.append('%s: %s' % (key, display))
+                text = ', '.join(parts)
+            else:
+                text = str(value)
+
+            if len(text) > 120:
+                return text[:117] + '...'
+            return text
+
         if value in (False, None, ''):
             return _('empty')
 
@@ -80,13 +119,13 @@ class AuditChatterMixin(models.AbstractModel):
             field = self._fields[field_name]
             new_value = self[field_name]
             lines.append(
-                '<li><b>%s</b>: %s</li>' % (
-                    field.string,
-                    self._audit_format_value(field, new_value),
+                Markup('<li><b>{}</b>: {}</li>').format(
+                    escape(field.string),
+                    escape(self._audit_format_value(field, new_value)),
                 )
             )
 
-        body = _('<b>Record created</b><br/><ul>%s</ul>') % ''.join(lines)
+        body = Markup('<b>Record created</b><br/><ul>{}</ul>').format(Markup('').join(lines))
         self.message_post(body=body)
 
     def _post_audit_write_logs(self, vals, old_values_by_record):
@@ -104,16 +143,15 @@ class AuditChatterMixin(models.AbstractModel):
                     continue
 
                 lines.append(
-                    '<li><b>%s</b>: %s %s %s</li>' % (
-                        field.string,
-                        record._audit_format_value(field, old_value),
-                        '&rarr;',
-                        record._audit_format_value(field, new_value),
+                    Markup('<li><b>{}</b>: {} &rarr; {}</li>').format(
+                        escape(field.string),
+                        escape(record._audit_format_value(field, old_value)),
+                        escape(record._audit_format_value(field, new_value)),
                     )
                 )
 
             if lines:
-                body = _('<b>Record updated</b><br/><ul>%s</ul>') % ''.join(lines)
+                body = Markup('<b>Record updated</b><br/><ul>{}</ul>').format(Markup('').join(lines))
                 record.message_post(body=body)
 
 

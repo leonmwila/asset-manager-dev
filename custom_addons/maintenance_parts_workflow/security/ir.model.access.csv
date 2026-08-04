@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_maintenance_part_request_user,access_maintenance_part_request_user,model_maintenance_part_request,base.group_user,1,1,1,0
+access_maintenance_part_request_line_user,access_maintenance_part_request_line_user,model_maintenance_part_request_line,base.group_user,1,1,1,0

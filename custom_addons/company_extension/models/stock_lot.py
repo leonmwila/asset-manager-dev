@@ -150,6 +150,12 @@ class StockLot(models.Model):
         if not company_id:
             return vals
 
+        # During imports/oncreate, onchange is not guaranteed to run.
+        # Ensure this company has a generated GRZ pool (from own ranges or
+        # inherited parent ranges) before attempting suffix lookup.
+        company = self.env['res.company'].browse(company_id)
+        self.env['grz.available.number'].ensure_numbers_for_company(company)
+
         grz_rec = self.env['grz.available.number'].search([
             ('company_id', '=', company_id),
             ('number', '=', number_int),
@@ -161,7 +167,6 @@ class StockLot(models.Model):
             return vals
 
         # Number not found — build a helpful error showing the accepted range.
-        company = self.env['res.company'].browse(company_id)
         available = self.env['grz.available.number'].search([
             ('company_id', '=', company_id),
             ('is_used', '=', False),

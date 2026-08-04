@@ -14,4 +14,3 @@ patches:
   - path: postgres-secret-patch.yaml
   - path: odoo-config-patch.yaml
   - path: odoo-deployment-patch.yaml
-  - path: odoo-service-patch.yaml

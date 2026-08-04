@@ -15,7 +15,7 @@
                     <field name="condition_state" string="Condition"/>
                     <field name="product_model" string="Model" readonly="1"/>
                     <field name="grz_number_b" string="GRZ Number B" options="{'no_create': True, 'no_edit': True}"/>
-                    <field name="grz_number" string="GRZ Number" readonly="1"/>
+                    <field name="grz_number" string="GRZ Number" readonly="1" force_save="1"/>
                 </group>
                 <field name="is_vehicle" invisible="1"/>
                 <group string="Vehicle Information" invisible="not is_vehicle">

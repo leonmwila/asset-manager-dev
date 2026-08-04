@@ -63,8 +63,8 @@ Next steps:
 3) Deploy production overlay:
    kubectl apply -k /opt/assetmanagerdev/k8s/overlays/production
 
-4) Verify access on server IP port 3000:
+4) Verify access through the public host on port 80:
    kubectl -n oemis get svc oemis-odoo
-   curl -I http://10.128.128.70:3000
+  curl -I http://oemis.grz.gov.zm
 
 EOF

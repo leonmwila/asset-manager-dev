@@ -2,8 +2,8 @@ from odoo import models
 from odoo.fields import Domain
 
 
-class RepairOrder(models.Model):
-    _inherit = 'repair.order'
+class MaintenanceRequest(models.Model):
+    _inherit = 'maintenance.request'
 
     def _get_product_catalog_domain(self):
         return (

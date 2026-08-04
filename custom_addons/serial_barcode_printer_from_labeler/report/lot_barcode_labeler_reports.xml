@@ -153,6 +153,16 @@
         <field name="binding_type">report</field>
     </record>
 
+    <record id="report_lot_barcode_labeler_html_xprinter_38x25_qr" model="ir.actions.report">
+        <field name="name">Lot/Serial Label Images (HTML) 38 x 25 mm - QR Code</field>
+        <field name="model">stock.lot</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">serial_barcode_printer_from_labeler.report_lot_barcode_labeler_html_xprinter_38x25_qr_document</field>
+        <field name="report_file">serial_barcode_printer_from_labeler.report_lot_barcode_labeler_html_xprinter_38x25_qr_document</field>
+        <field name="binding_model_id" ref="stock.model_stock_lot"/>
+        <field name="binding_type">report</field>
+    </record>
+
     <record id="report_lot_barcode_labeler_97_1x54_3" model="ir.actions.report">
         <field name="name">Lot Labeler Barcode 97.1 x 54.3 mm</field>
         <field name="model">stock.lot</field>

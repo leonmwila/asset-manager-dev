@@ -16,6 +16,18 @@ class RepairOrder(models.Model):
         check_company=False,  # Disable company consistency check
         help="Serial number of the asset to repair. This field shows serial numbers from all companies."
     )
+    company_id = fields.Many2one(
+        'res.company',
+        string='Institution',
+        required=False,
+        check_company=False,
+        help='Institution for this repair order. This field is optional in this workflow.'
+    )
+    location_id = fields.Many2one(
+        check_company=False,
+        domain="[]",
+        help="Pick-from location for spare parts. Shows all locations across all institutions."
+    )
 
     def _get_repair_lot_domain(self):
         """Return lot domain based on selected asset and customer."""
@@ -23,19 +35,25 @@ class RepairOrder(models.Model):
         if self.product_id:
             domain.append(('product_id', '=', self.product_id.id))
         if self.partner_id:
-            domain.append(('company_id.partner_id', 'child_of', self.partner_id.id))
+            # Use commercial partner so selecting a contact still matches the
+            # owning customer organization and its children.
+            domain.append(('company_id.partner_id', 'child_of', self.partner_id.commercial_partner_id.id))
         return domain
 
-    @api.onchange('partner_id', 'product_id')
+    @api.onchange('partner_id', 'product_id', 'company_id')
     def _onchange_partner_product_lot_domain(self):
         domain = []
         for repair in self:
             domain = repair._get_repair_lot_domain()
             if repair.lot_id:
-                partner_ok = not repair.partner_id or (
-                    repair.lot_id.company_id and repair.lot_id.company_id.partner_id and
-                    repair.lot_id.company_id.partner_id in repair.partner_id.child_ids | repair.partner_id
-                )
+                partner_ok = True
+                if repair.partner_id:
+                    commercial_partner = repair.partner_id.commercial_partner_id
+                    partner_ok = bool(
+                        repair.lot_id.company_id
+                        and repair.lot_id.company_id.partner_id
+                        and repair.lot_id.company_id.partner_id.commercial_partner_id == commercial_partner
+                    )
                 if repair.lot_id.product_id != repair.product_id or not partner_ok:
                     repair.lot_id = False
         return {'domain': {'lot_id': domain}}
@@ -69,6 +87,13 @@ class RepairOrder(models.Model):
         domain="[('share', '=', False)]",
         default=lambda self: [(6, 0, [self.env.user.id])],
         help='Users responsible for this repair order.'
+    )
+    technician_user_id = fields.Many2one(
+        'res.users',
+        string='Technician',
+        domain="[('share', '=', False)]",
+        tracking=True,
+        help='Assigned technician for this repair order.'
     )
 
     transfer_request_ids = fields.One2many('repair.transfer.request', 'repair_id', string='Transfer Requests')

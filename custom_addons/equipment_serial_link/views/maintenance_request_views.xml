@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_maintenance_request_form_inherit_equipment_institution" model="ir.ui.view">
+        <field name="name">maintenance.request.form.inherit.equipment.institution</field>
+        <field name="model">maintenance.request</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_request_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_create_invoice" string="Create Invoice" type="object" class="btn-primary" invisible="not can_create_invoice"/>
+                <button name="action_view_invoice" string="View Invoice" type="object" class="btn-secondary" invisible="not invoice_id"/>
+            </xpath>
+            <xpath expr="//field[@name='equipment_id']" position="attributes">
+                <attribute name="domain">[('company_id', '=', company_id)]</attribute>
+            </xpath>
+            <xpath expr="//field[@name='employee_id'] | //field[@name='owner_user_id']" position="attributes">
+                <attribute name="string">Requested By</attribute>
+                <attribute name="readonly">0</attribute>
+            </xpath>
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="technician_user_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
+                <field name="invoice_id" readonly="1"/>
+            </xpath>
+            <xpath expr="//page[.//field[@name='instruction_type']]" position="after">
+                <page string="Services">
+                    <field name="service_line_ids" mode="list,form">
+                        <list editable="bottom">
+                            <field name="name"/>
+                            <field name="product_id"/>
+                            <field name="product_uom_qty"/>
+                            <field name="price_unit"/>
+                            <field name="price_subtotal" readonly="1"/>
+                        </list>
+                    </field>
+                </page>
+                <page string="Parts">
+                    <field name="part_line_ids" mode="list,form">
+                        <list editable="bottom">
+                            <field name="product_id"/>
+                            <field name="qty"/>
+                            <field name="product_uom_id"/>
+                            <field name="price_unit"/>
+                            <field name="price_subtotal" readonly="1"/>
+                            <field name="note"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
