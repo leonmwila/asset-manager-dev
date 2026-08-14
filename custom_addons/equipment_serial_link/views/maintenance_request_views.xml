@@ -17,6 +17,7 @@
                 <attribute name="readonly">0</attribute>
             </xpath>
             <xpath expr="//field[@name='user_id']" position="after">
+                <field name="service_company_id" help="Institution that will provide the maintenance service."/>
                 <field name="technician_user_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
                 <field name="invoice_id" readonly="1"/>
             </xpath>
@@ -45,6 +46,25 @@
                     </field>
                 </page>
             </xpath>
+        </field>
+    </record>
+
+    <record id="view_maintenance_request_search_inherit_institution_roles" model="ir.ui.view">
+        <field name="name">maintenance.request.search.inherit.institution.roles</field>
+        <field name="model">maintenance.request</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_request_view_search"/>
+        <field name="arch" type="xml">
+            <search position="inside">
+                <separator/>
+                <filter name="filter_customer_requests" string="Customer Requests" domain="[('customer_company_type', '=', 'customer')]"/>
+                <filter name="filter_supplier_requests" string="Supplier Requests" domain="[('service_company_type', '=', 'supplier')]"/>
+                <filter name="filter_service_provider" string="Service Provider Assigned" domain="[('service_company_id', '!=', False)]"/>
+                <separator/>
+                <filter name="groupby_customer_institution" string="Customer Institution" context="{'group_by': 'company_id'}"/>
+                <filter name="groupby_supplier_institution" string="Supplier Institution" context="{'group_by': 'service_company_id'}"/>
+                <filter name="groupby_customer_type" string="Customer Institution Type" context="{'group_by': 'customer_company_type'}"/>
+                <filter name="groupby_supplier_type" string="Supplier Institution Type" context="{'group_by': 'service_company_type'}"/>
+            </search>
         </field>
     </record>
 </odoo>

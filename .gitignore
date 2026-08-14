@@ -1,4 +1,5 @@
 .env
 __pycache__/
 *.pyc
-oemis-odoo-local.tar
+oemis-odoo*.tar
+.tmp-oemis-odoo*.tar*

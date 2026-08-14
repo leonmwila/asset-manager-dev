@@ -1,9 +1,9 @@
 {
     'name': 'Equipment Auto Create from Serial',
-    'version': '1.0',
+    'version': '1.1',
     'category': 'Inventory/Maintenance',
     'summary': 'Automatically create Maintenance Equipment when Serial Numbers are created',
-    'depends': ['stock', 'maintenance', 'account'],
+    'depends': ['stock', 'maintenance', 'account', 'company_extension'],
     'data': [
         'security/ir.model.access.csv',
         'views/maintenance_request_views.xml',

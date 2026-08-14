@@ -5,6 +5,25 @@ from odoo.exceptions import UserError
 class MaintenanceRequest(models.Model):
     _inherit = 'maintenance.request'
 
+    service_company_id = fields.Many2one(
+        'res.company',
+        string='Service Provider Institution',
+        domain="[('institution_type_2', '=', 'supplier')]",
+        help='Institution that will provide the maintenance service.',
+    )
+    customer_company_type = fields.Selection(
+        related='company_id.institution_type_2',
+        string='Customer Institution Type',
+        store=True,
+        readonly=True,
+    )
+    service_company_type = fields.Selection(
+        related='service_company_id.institution_type_2',
+        string='Service Provider Institution Type',
+        store=True,
+        readonly=True,
+    )
+
     technician_user_ids = fields.Many2many(
         'res.users',
         'maintenance_request_technician_rel',
@@ -202,6 +221,22 @@ class MaintenanceRequest(models.Model):
             'view_mode': 'form',
             'target': 'current',
         }
+
+    @api.onchange('company_id')
+    def _onchange_company_id_role_filter(self):
+        """Restrict requester and service-provider institutions to the correct roles."""
+        if self.company_id and self.company_id.institution_type_2 != 'customer':
+            self.company_id = False
+        if self.service_company_id and self.service_company_id.id == self.company_id.id:
+            self.service_company_id = False
+        if self.service_company_id and self.service_company_id.institution_type_2 != 'supplier':
+            self.service_company_id = False
+
+    @api.onchange('service_company_id')
+    def _onchange_service_company_id_role_filter(self):
+        """Ensure the selected service provider is always a supplier institution."""
+        if self.service_company_id and self.service_company_id.institution_type_2 != 'supplier':
+            self.service_company_id = False
 
     @api.onchange('company_id')
     def _onchange_company_equipment_domain(self):

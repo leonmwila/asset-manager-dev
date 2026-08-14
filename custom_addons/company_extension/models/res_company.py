@@ -13,6 +13,10 @@ class ResCompany(models.Model):
         ('ngo', 'NGO'),
         ('parastatal', 'Parastatal')
     ], string='Company Type')
+    institution_type_2 = fields.Selection([
+        ('supplier', 'Supplier'),
+        ('customer', 'Customer'),
+    ], string='Institution Type 2', help='Used to distinguish institutions that provide or receive maintenance services.')
     program_ids = fields.One2many('oe.program', 'company_id', string='Programs', required=False)
     project_ids = fields.One2many('oe.project', 'company_id', string='Projects', required=False)
     serial_range_ids = fields.One2many('res.serial.range', 'company_id', string='Serial Ranges', required=False)
